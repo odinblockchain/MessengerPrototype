@@ -1,0 +1,9 @@
+<h2>Add New Contact</h2>
+<div>
+  <label>Contact Name:
+    <input [(ngModel)]="contact.name" placeholder="name">
+  </label>
+</div>
+
+<button
+  (click)="onSave(contact)">Save</button>

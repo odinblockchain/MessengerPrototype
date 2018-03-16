@@ -1,0 +1,34 @@
+$brandColor: #5affab;
+
+:host {
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  position: relative;
+}
+
+.new-contact {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+
+  a {
+    color: #ffffff;
+    font-size: 2rem;
+    line-height: 50px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: $brandColor;
+    display: block;
+    text-align: center;
+    line-height: 44px;
+  }
+}
+
+.list-container {
+  &:after,
+  &::after {
+    grid-column: 2/-1;
+  }
+}

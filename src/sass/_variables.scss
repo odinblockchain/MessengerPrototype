@@ -1,0 +1,21 @@
+$red: green;
+$brandColor: #5affab;
+
+// $appBodyColor: hotpink;
+$appBodyColor: #ffffff;
+
+// $appHeaderColor: indigo;
+$appHeaderColor: $brandColor;
+$appHeaderTextColor: #333333;
+
+$breakpoints: (
+  'small'  : 767px,
+  'medium' : 992px,
+  'large'  : 1200px
+);
+
+// $app-nav-width: 220px;
+$app-nav-width: 75vw;
+$menu-nav-width: 175px;
+$flex-scroll-offset: 18px;
+$header-width: 55px;

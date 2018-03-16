@@ -1,0 +1,42 @@
+:host,
+app-view-addresses {
+  display: block;
+
+  padding: 0 1rem;
+}
+
+.title {
+  margin: 0;
+  padding: 0;
+}
+
+.wallet--review {
+  display: grid;
+  grid-gap: 20px;
+}
+
+.address {
+  background-color: #eeeeee;
+  border-bottom: 1px solid #cccccc;
+  padding: 0.5rem;
+  display: grid;
+  grid-gap: 0.5rem;
+
+  p {
+    margin: 0;
+  }
+
+  .address--balance {
+    span {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  }
+
+  .address--public {
+    font-family: monospace;
+    display: block;
+    width: 100%;
+    padding: 0.3rem;
+  }
+}

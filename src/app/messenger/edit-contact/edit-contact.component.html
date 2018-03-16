@@ -1,0 +1,40 @@
+<div class="edit-contact-wrapper" *ngIf="contact else loading">
+  <h2>{{contact?.name}}</h2>
+  <p>{{contact?.id}}</p>
+
+  <p>
+    <label>Contact Name:
+      <input [(ngModel)]="contact.name" placeholder="name">
+    </label>
+  </p>
+
+  <p>
+    <label>Contact Email:
+      <input [(ngModel)]="contact.email" placeholder="email">
+    </label>
+  </p>
+
+  <p>
+    <button
+      class="button"
+      (click)="onSave(contact)">Save</button>
+
+    <button
+      class="button danger"
+      (click)="shouldConfirmDelete = true">Delete</button>
+  </p>
+
+  <p *ngIf="shouldConfirmDelete">
+    <button
+      class="button"
+      (click)="shouldConfirmDelete = false">No</button>
+
+    <button
+      class="button danger"
+      (click)="onDelete(contact)">Yes</button>
+  </p>
+</div>
+
+<ng-template #loading>
+  <div class="view-loading">Loading...</div>
+</ng-template>

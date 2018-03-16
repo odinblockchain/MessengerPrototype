@@ -1,0 +1,15 @@
+<ng-container *ngIf="transactions else loading">
+  <div class="wallet--review wallet--review--adresses">
+    <div class="address" *ngFor="let transaction of wallet.transactions">
+      <p class="address--label">{{transaction.txid}}</p>
+      <p class="address--balance u-text-align-center"><span>{{transaction.amount}}</span> ODN</p>
+      <input class="address--public disabled" [(ngModel)]="transaction.fromPublicKey" disabled />
+
+      <input class="address--public disabled" [(ngModel)]="transaction.toPublicKey" disabled />
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="view-loading">Loading...</div>
+</ng-template>

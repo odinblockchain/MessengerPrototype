@@ -1,0 +1,26 @@
+<div class=""
+     *ngIf="contacts else loading">
+
+  <div class="list-container"
+       *ngFor="let contact of contacts"
+       (click)="onSelect(contact)"
+       [class.active]="contact === selectedContact">
+    <div class="avatar bubble">{{contact.name | avatarName | uppercase}}</div>
+    <div class="username list-item">
+      <span>{{contact.name}}</span>
+      <br>
+      <p><a [routerLink]="['./view', contact.id]">Link</a></p>
+    </div>
+    <div class="metadata">4:21 pm</div>
+  </div>
+
+</div>
+
+<div class="new-contact">
+  <a [routerLink]="['./new']">+</a>
+</div>
+
+<ng-template #loading>
+  <div class="view-loading">Loading...</div>
+  <!-- <app-loading></app-loading> -->
+</ng-template>

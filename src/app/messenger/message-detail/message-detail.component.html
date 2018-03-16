@@ -1,0 +1,66 @@
+<div
+  class="message-list"
+  *ngIf="contact && messages else loading">
+
+  <div
+    class="message-input"
+    [class.attach-menu--open]="showAttachMenu === true">
+
+    <ng-container *ngIf="showMessageInput">
+      <input class="input" type="text" placeholder="Message" [(ngModel)]="newMessage" />
+    </ng-container>
+
+    <ng-container *ngIf="showPaymentInput">
+      <input class="input" type="text" placeholder="ODN Amount" [(ngModel)]="odnAmount" />
+    </ng-container>
+
+    <button
+      class="button action-icon"
+      (click)="onAttach()">
+      <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCIgdmlld0JveD0iMCAwIDYxMi42NzUgNjEyLjY3NSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjEyLjY3NSA2MTIuNjc1OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPGcgaWQ9Il94MzRfXzE3XyI+CgkJPGc+CgkJCTxwYXRoIGQ9Ik01ODEuMjA5LDIyMy4wMDdMMjY5LjgzOSw1MzAuOTJjLTUxLjU5Miw1MS4wMjQtMTM1LjI0Nyw1MS4wMjQtMTg2LjgzOSwwYy01MS41OTItNTEuMDIzLTUxLjU5Mi0xMzMuNzM3LDAtMTg0Ljc2MSAgICAgTDM2My4yNDgsNjkuMDRjMzQuNDAyLTM0LjAwOSw5MC4xNS0zNC4wMDksMTI0LjU1MywwYzM0LjQwMiwzNC4wMDgsMzQuNDAyLDg5LjE2NiwwLDEyMy4xNzRsLTI4MC4yNDksMjc3LjEyICAgICBjLTE3LjE5LDE3LjAxNi00NS4wNzUsMTcuMDE2LTYyLjI4NywwYy0xNy4xOS0xNi45OTMtMTcuMTktNDQuNTcxLDAtNjEuNTg3TDM5NC4zNywxNjEuNDJsLTMxLjE0NC0zMC43OTNMMTE0LjE0NCwzNzYuOTc1ICAgICBjLTM0LjQwMiwzNC4wMDktMzQuNDAyLDg5LjE2NiwwLDEyMy4xNzRjMzQuNDAyLDM0LjAwOSw5MC4xNSwzNC4wMDksMTI0LjU1MiwwbDI4MC4yNDktMjc3LjEyICAgICBjNTEuNTkyLTUxLjAyMyw1MS41OTItMTMzLjczNywwLTE4NC43NjFjLTUxLjU5My01MS4wMjMtMTM1LjI0Ny01MS4wMjMtMTg2LjgzOSwwTDM2LjI4NSwzMzAuNzg0bDEuMDcyLDEuMDcxICAgICBjLTUzLjczNiw2OC4zMjMtNDkuMDEyLDE2Ny4wOTEsMTQuNSwyMjkuODhjNjMuNTEyLDYyLjc5LDE2My4zNSw2Ny40OTIsMjMyLjQ2LDE0LjMyNWwxLjA3MiwxLjA3MmwzMjYuOTQyLTMyMy4zMSAgICAgTDU4MS4yMDksMjIzLjAwN3oiIGZpbGw9IiMwMDAwMDAiLz4KCQk8L2c+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==" />
+    </button>
+
+    <button
+      class="button action-icon"
+      (click)="onSend()">
+      <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgNTM1LjUgNTM1LjUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUzNS41IDUzNS41OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPGcgaWQ9InNlbmQiPgoJCTxwb2x5Z29uIHBvaW50cz0iMCw0OTcuMjUgNTM1LjUsMjY3Ljc1IDAsMzguMjUgMCwyMTYuNzUgMzgyLjUsMjY3Ljc1IDAsMzE4Ljc1ICAgIiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==" />
+    </button>
+
+    <div class="attach-menu">
+      <ul>
+        <li class="1"
+            (click)="onAttachPaymentClick()">
+          <img
+          class="img-icon"
+          src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ5MC42NjcgNDkwLjY2NyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDkwLjY2NyA0OTAuNjY3OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCI+CjxnPgoJPGc+CgkJPHBhdGggZD0iTTQ1OC42NjcsMjEzLjMzM0g0NDhWMzJjMC01Ljg5MS00Ljc3Ni0xMC42NjctMTAuNjY3LTEwLjY2N0g3NC42NjdjLTI5LjQ0MSwwLjAzNS01My4yOTgsMjMuODkzLTUzLjMzMyw1My4zMzN2MTcwLjY2NyAgICBoMjEuMzMzVjExNy4wNTZjOS4xNzcsNy4wNTksMjAuNDIyLDEwLjkwNSwzMiwxMC45NDRoMzUydjg1LjMzM0gzNTJjLTE3LjY3MywwLTMyLDE0LjMyNy0zMiwzMlYyODhjMCwxNy42NzMsMTQuMzI3LDMyLDMyLDMyICAgIGg3NC42Njd2OTZjMCw1Ljg5MS00Ljc3NiwxMC42NjctMTAuNjY3LDEwLjY2N0gyMjRWNDQ4aDE5MmMxNy42NzMsMCwzMi0xNC4zMjcsMzItMzJ2LTk2aDEwLjY2N2MxNy42NzMsMCwzMi0xNC4zMjcsMzItMzIgICAgdi00Mi42NjdDNDkwLjY2NywyMjcuNjYsNDc2LjM0LDIxMy4zMzMsNDU4LjY2NywyMTMuMzMzeiBNNzQuNjY3LDEwNi42NjdjLTE3LjY3MywwLTMyLTE0LjMyNy0zMi0zMnMxNC4zMjctMzIsMzItMzJoMzUydjY0ICAgIEg3NC42Njd6IE00NjkuMzMzLDI4OGMwLDUuODkxLTQuNzc2LDEwLjY2Ny0xMC42NjcsMTAuNjY3SDM1MmMtNS44OTEsMC0xMC42NjctNC43NzYtMTAuNjY3LTEwLjY2N3YtNDIuNjY3ICAgIGMwLTUuODkxLDQuNzc2LTEwLjY2NywxMC42NjctMTAuNjY3aDEwNi42NjdjNS44OTEsMCwxMC42NjcsNC43NzYsMTAuNjY3LDEwLjY2N1YyODh6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+Cgk8Zz4KCQk8cmVjdCB4PSIzNjIuNjY3IiB5PSIyNTYiIHdpZHRoPSIyMS4zMzMiIGhlaWdodD0iMjEuMzMzIiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNMTE3LjMzMywyMzQuNjY3QzUyLjUzMiwyMzQuNjY3LDAsMjg3LjE5OSwwLDM1MnM1Mi41MzIsMTE3LjMzMywxMTcuMzMzLDExNy4zMzNTMjM0LjY2Nyw0MTYuODAxLDIzNC42NjcsMzUyICAgIEMyMzQuNTksMjg3LjIzLDE4Mi4xMDMsMjM0Ljc0MywxMTcuMzMzLDIzNC42Njd6IE0xMTcuMzMzLDQ0OGMtNTMuMDE5LDAtOTYtNDIuOTgxLTk2LTk2YzAtNTMuMDE5LDQyLjk4MS05Niw5Ni05NiAgICBzOTYsNDIuOTgxLDk2LDk2QzIxMy4yNjksNDA0Ljk5MywxNzAuMzI2LDQ0Ny45MzUsMTE3LjMzMyw0NDh6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNMTYwLDMzMC42NjdWMzIwYzAtMTEuNzgyLTkuNTUxLTIxLjMzMy0yMS4zMzMtMjEuMzMzSDEyOHYtMjEuMzMzaC0yMS4zMzN2MjEuMzMzSDk2ICAgIGMtMTEuNzgyLDAtMjEuMzMzLDkuNTUxLTIxLjMzMywyMS4zMzN2MjEuMzMzYzAsMTEuNzgyLDkuNTUxLDIxLjMzMywyMS4zMzMsMjEuMzMzaDQyLjY2N1YzODRIOTZ2LTEwLjY2N0g3NC42NjdWMzg0ICAgIGMwLDExLjc4Miw5LjU1MSwyMS4zMzMsMjEuMzMzLDIxLjMzM2gxMC42Njd2MjEuMzMzSDEyOHYtMjEuMzMzaDEwLjY2N2MxMS43ODIsMCwyMS4zMzMtOS41NTEsMjEuMzMzLTIxLjMzM3YtMjEuMzMzICAgIGMwLTExLjc4Mi05LjU1MS0yMS4zMzMtMjEuMzMzLTIxLjMzM0g5NlYzMjBoNDIuNjY3djEwLjY2N0gxNjB6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+Cgk8Zz4KCQk8cmVjdCB4PSIxNzAuNjY3IiB5PSIzNDEuMzMzIiB3aWR0aD0iMjEuMzMzIiBoZWlnaHQ9IjIxLjMzMyIgZmlsbD0iIzAwMDAwMCIvPgoJPC9nPgo8L2c+CjxnPgoJPGc+CgkJPHJlY3QgeD0iNDIuNjY3IiB5PSIzNDEuMzMzIiB3aWR0aD0iMjEuMzMzIiBoZWlnaHQ9IjIxLjMzMyIgZmlsbD0iIzAwMDAwMCIvPgoJPC9nPgo8L2c+CjxnPgoJPGc+CgkJPHJlY3QgeD0iNjQiIHk9IjY0IiB3aWR0aD0iMzUyIiBoZWlnaHQ9IjIxLjMzMyIgZmlsbD0iIzAwMDAwMCIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" />
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="list-container message"
+       *ngFor="let message of messages"
+       (click)="onSelect(message)"
+       [ngClass]="[(message.attachment?.type) ? 'type--' + message.attachment?.type : '' ]"
+       [class.active]="message === selectedMessage"
+       [class.local]="message.senderId !== message.contactId">
+
+    <div *ngIf="message.senderId === message.contactId; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock class="avatar bubble">
+      <div class="avatar bubble">{{contact?.name | avatarName | uppercase}}</div>
+    </ng-template>
+    <ng-template #elseBlock class="avatar bubble">
+      <div class="avatar bubble">{{ 'Me' | avatarName | uppercase}}</div>
+    </ng-template>
+
+    <div class="message list-item">
+      <p>{{message.body}}</p>
+      <p><strong>{{message.attachment?.type}}</strong></p>
+    </div>
+    <div class="metadata">{{message.time}}</div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="view-loading">Loading...</div>
+</ng-template>

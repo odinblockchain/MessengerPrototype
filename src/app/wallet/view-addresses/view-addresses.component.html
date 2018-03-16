@@ -1,0 +1,13 @@
+<ng-container *ngIf="addresses else loading">
+  <div class="wallet--review wallet--review--adresses">
+    <div class="address" *ngFor="let address of wallet.addresses">
+      <p class="address--label">{{address.label}}</p>
+      <p class="address--balance u-text-align-center"><span>{{address.balance}}</span> ODN</p>
+      <input class="address--public disabled" [(ngModel)]="address.publicKey" disabled />
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="view-loading">Loading...</div>
+</ng-template>

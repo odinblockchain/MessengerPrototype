@@ -1,20 +1,139 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="app-inner"
+     [class.drawer-open]="menuActive === true"
+     [class.action-menu-open]="actionMenuActive === true"
+     [class.modal-active]="modalActiveState === true">
 
+  <!-- App Drawer -->
+  <div class="app-nav-wrapper flex-scroll">
+    <div class="scroll-wrap">
+      <div class="app-nav scroller">
+        <div class="bubble">Me</div>
+        <div class="app">
+          <a [routerLink]="['/messenger']">MSG</a>
+        </div>
+        <div class="app">
+          <a [routerLink]="['/wallet']">WLT</a>
+        </div>
+        <div class="app empty">+</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:none" class="menu-wrapper flex-scroll">
+    <div class="scroll-wrap">
+      <div class="menu scroller">
+        <header>Menu Name</header>
+        <div class="list">
+          <p>Some Friend Namedwdwdwdwdwdwdwdwdwdw</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+          <p>Some Friend Name</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- App View -->
+  <div class="app-view" [class.open]="menuActive === true">
+    <header class="header">
+
+      <ng-container [ngSwitch]="showBackAction">
+        <ng-template [ngSwitchCase]="true">
+          <button class="menu-btn"
+                  (click)="goBackAction()"><</button>
+        </ng-template>
+        <ng-template ngSwitchDefault>
+          <div class="menu-btn line-menu--wrap" (click)="toggleMenu()">
+            <span class="line-menu half start"></span>
+            <span class="line-menu"></span>
+            <span class="line-menu half end"></span>
+          </div>
+        </ng-template>
+      </ng-container>
+
+      <!-- PR⍉JℇC₸ RɅᐯ3N-->
+      <h1 class="brand">{{title}}</h1>
+
+      <ng-container *ngIf="actionMenu.length > 0">
+        <div class="action-btn"
+             (click)="toggleActionMenu()">
+          <span></span>
+        </div>
+      </ng-container>
+
+      <div class="action-menu">
+        <ul>
+          <li *ngFor="let action of actionMenu">
+            <a [routerLink]="[action.link]">{{action.label}}</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="svgx">
+      <svg width="18" height="18" class="button-2ZR58H open-3KjR1l">
+        <g fill="none" fill-rule="evenodd">
+          <path d="M0 0h18v18H0"></path>
+          <path class="line" d="M4.5 4.5l9 9" stroke-linecap="round"></path>
+          <path class="line" d="M13.5 4.5l-9 9" stroke-linecap="round"></path>
+        </g>
+      </svg>
+    </div>
+
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class="modal-box" (click)="appModal.onModalClick()">
+    <div class="modal-inner">
+      <header>
+        <h3>{{modalConfig.title}}</h3>
+        <p>{{modalConfig.type}}</p>
+      </header>
+      <section [ngSwitch]="modalConfig.type">
+        <p>{{modalConfig.body}}</p>
+
+        <div *ngSwitchCase="'confirm'">
+          <button (click)="appModal.onConfirmAction(true)">Yes</button>
+          <button (click)="appModal.onConfirmAction(false)">No</button>
+        </div>
+        <div *ngSwitchCase="'notice'">
+          <button (click)="appModal.onConfirmAction(true)">Ok</button>
+        </div>
+        <div *ngSwitchDefault>
+          <!-- Missing -->
+        </div>
+
+      </section>
+    </div>
+  </div>
+
+  <!-- Blocker -->
+  <div class="blocker"
+       (click)="toggleMenu(menuActive)"></div>
+</div>

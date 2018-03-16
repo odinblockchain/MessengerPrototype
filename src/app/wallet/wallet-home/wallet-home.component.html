@@ -1,0 +1,27 @@
+<ng-container *ngIf="wallet else loading">
+  <div class="wallet--overview">
+    <h3>Balance</h3>
+    <p>{{walletBalance()}} <small>ODN</small></p>
+    <p><small>Rec|Send|New|Ref</small></p>
+  </div>
+
+  <div class="wallet--review wallet--review--adresses">
+    <h3>Addresses</h3>
+    <ul>
+      <li *ngFor="let address of wallet.addresses">{{address.label}} ... {{address.balance}}</li>
+    </ul>
+    <p><a [routerLink]="['./addresses']">Link To Addresses View</a></p>
+  </div>
+
+  <div class="wallet--review wallet--review--transactions">
+    <h3>Transactions</h3>
+    <ul>
+      <li *ngFor="let transaction of wallet.transactions">{{transaction.txid}}</li>
+    </ul>
+    <p><a [routerLink]="['./transactions']">Link To Transactions View</a></p>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="view-loading">Loading...</div>
+</ng-template>

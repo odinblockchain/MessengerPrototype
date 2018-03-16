@@ -1,0 +1,51 @@
+:host,
+app-wallet-home {
+  display: grid;
+  grid-gap: 2em;
+
+  padding: 0 1rem;
+}
+
+
+.wallet--overview {
+  background-color: #eeeeee;
+  text-align: center;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  // height: 70px;
+
+  h3, p {
+    margin: 0;
+  }
+
+  h3 {
+    align-self: end;
+    font-size: 1em;
+  }
+
+  p {
+    align-self: baseline;
+    font-size: 2em;
+  }
+}
+
+.wallet--review {
+  background-color: #fff;
+
+  h3 {
+    background-color: #eee;
+    padding: 5px;
+    margin: 0;
+  }
+
+  ul {
+    margin: 15px 0;
+    padding: 0 10px;
+    list-style-type: none;
+  }
+
+  p {
+    margin: 0;
+  }
+}
