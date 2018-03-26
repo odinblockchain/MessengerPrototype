@@ -1,7 +1,7 @@
 <ng-container *ngIf="feedbackLoaded else loading">
 
   <ng-container *ngIf="feedbackEnabled else disabled">
-    <div class="container">
+    <div class="app-container">
       <h2>Feedback</h2>
       <p>We've integrated a direct way you can contibute feedback to let us know you think we have done right and what we can improve on. Your opinion matters and we want to hear from you.</p>
 
@@ -31,7 +31,7 @@
   </ng-container>
 
   <ng-template #disabled>
-    <div>
+    <div class="app-container">
       <h2>Feedback Disabled</h2>
       <p>We are currently not accepting feedback at this time. Please check again later!</p>
     </div>

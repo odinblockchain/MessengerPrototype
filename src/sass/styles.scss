@@ -68,6 +68,26 @@ app-root,
   }
 }
 
+.app-container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .app-container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .app-container{
+    max-width: 720px;
+  }
+}
+
 .app-nav-wrapper {
   // background-color: cornflowerblue;
   background-color: rgba(0,0,0,0.4);
