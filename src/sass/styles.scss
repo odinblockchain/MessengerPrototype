@@ -7,6 +7,10 @@
 @import './header';
 @import './typography';
 
+html {
+  background-color: #666666;
+}
+
 body {
   line-height: 1;
   margin: 0;
@@ -15,6 +19,7 @@ body {
   user-select: none;
   // background-color: $appBodyColor;
   background-color: #666666;
+  color: $appTypographyColor;
 }
 
 app-root,
@@ -37,7 +42,7 @@ app-root,
   height: 100vh;
   position: relative;
   z-index: 10;
-  background-color: #caecff;
+  background-color: $appViewBg;
 }
 
 .view-loading {
@@ -92,8 +97,8 @@ app-root,
 }
 
 .app-nav-wrapper {
-  // background-color: cornflowerblue;
-  background-color: rgba(0,0,0,0.4);
+  // background-color: $appNavBg;
+  background: linear-gradient(110deg, #225a78, #0f2734);
   box-shadow: 0px 0px 5px 1px #000000;
 
   // flex-shrink: 0;
@@ -208,7 +213,7 @@ app-root,
   height: 50px;
   width: 50px;
   border-radius: 50%;
-  background-color: yellow;
+  background-color: $appPersonalBg;
   position: relative;
 
   display: grid;
@@ -219,24 +224,51 @@ app-root,
 .app {
   height: 50px;
   width: 50px;
-  border-radius: 25%;
+  border-radius: 0 8px 8px 8px;
   // background-color: rgba(53, 231, 250, 0.7);
-  background-color: darken($brandColor, 20);
+  // background-color: $appIconBg;
+  // background-color: opacify($appIconBorder, 0.8);
   margin: 0 auto;
-  border: 4px solid $brandColor;
+  border: 2px solid $appIconBorder;
 
   display: grid;
   justify-content: center;
   align-content: center;
-  color: #ffffff;
+  color: $appIconColor;
 
-  a {
-    color: #ffffff;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    height: 0;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(155, 211, 199, 0.25);
+    border-radius: 0 0 8px 8px;
+    transition: height 150ms ease-in-out;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $appIconColor;
+    text-decoration: none;
+
+    &:after {
+      height: 80%;
+    }
   }
 
   &.empty {
     background-color: transparent;
     font-size: 1.4rem;
+
+    span {
+      height: 1rem;
+      line-height: 14px;
+    }
   }
 }
 

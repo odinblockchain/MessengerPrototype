@@ -8,16 +8,10 @@
     <div class="scroll-wrap">
       <div class="app-nav scroller">
         <div class="bubble">Me</div>
-        <div class="app">
-          <a [routerLink]="['/messenger']">MSG</a>
-        </div>
-        <div class="app">
-          <a [routerLink]="['/wallet']">WLT</a>
-        </div>
-        <div class="app">
-          <a [routerLink]="['/feedback']">FDBK</a>
-        </div>
-        <div class="app empty">+</div>
+        <a class="app" [routerLink]="['/messenger']">MSG</a>
+        <a class="app" [routerLink]="['/wallet']">WLT</a>
+        <a class="app" [routerLink]="['/feedback']">FDBK</a>
+        <div class="app empty"><span>+</span></div>
       </div>
     </div>
   </div>

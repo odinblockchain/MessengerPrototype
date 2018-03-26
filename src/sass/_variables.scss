@@ -1,11 +1,35 @@
-$red: green;
-$brandColor: #5affab;
+$purple: #5a3278;
+$red: #f05a5a;
+$green: #9bd3c7;
+$gray: #313337;
+
+$blue: #8c96be;
+$blueDarker: #225a78;
+
+// $brandColor: #5affab;
+$brandColor: $green;
+$dangerColor: $red;
 
 // $appBodyColor: hotpink;
-$appBodyColor: #ffffff;
+// $appBodyColor: #ffffff;
+// $appViewBg: #313337;
+$appViewBg: $gray;
+$appTypographyColor: #dbe9e6;
+
+$appNavBg: $gray;
+
+$appPersonalBg: $blue;
+$appIconBg: transparent;
+$appIconBorder: $brandColor;
+$appIconColor: #ffffff;
+
+$listItemBgActive: $blueDarker;
+
 
 // $appHeaderColor: indigo;
-$appHeaderColor: $brandColor;
+// $appHeaderColor: $brandColor;
+$appHeaderBg: $brandColor;
+// $appHeaderBg: $blueDarker;
 $appHeaderTextColor: #333333;
 
 $breakpoints: (

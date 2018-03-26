@@ -1,3 +1,5 @@
+@import '~sass/variables';
+
 .list-container {
   position: relative;
   display: grid;
@@ -25,7 +27,7 @@
   }
 
   &.active {
-    background-color: #f1f1f1;
+    background-color: $listItemBgActive;
   }
 
   .avatar,
