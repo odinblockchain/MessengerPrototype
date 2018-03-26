@@ -1,18 +1,10 @@
-:host,
-app-wallet-home {
-  display: grid;
-  grid-gap: 2em;
-
-  padding: 0 1rem;
-}
-
-
 .wallet--overview {
   background-color: #eeeeee;
   text-align: center;
   display: grid;
   justify-content: center;
   align-items: center;
+  margin-bottom: 2rem;
   // height: 70px;
 
   h3, p {

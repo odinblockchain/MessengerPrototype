@@ -14,7 +14,7 @@ import { FeedbackService } from './feedback.service';
 export class FeedbackComponent implements OnInit {
   formToken: string;
   feedbackLoaded: boolean = false;
-  feedbackEnabled: boolean = false;
+  feedbackEnabled: boolean = true;
 
   feedback: Feedback = {
     type: '',

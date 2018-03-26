@@ -13,7 +13,8 @@ body {
   overflow: hidden;
   padding: 0;
   user-select: none;
-  background-color: $appBodyColor;
+  // background-color: $appBodyColor;
+  background-color: #666666;
 }
 
 app-root,
@@ -31,10 +32,12 @@ app-root,
 }
 
 .app-view {
-  position: relative;
-  z-index: 10;
   display: grid;
   grid-template-rows: $header-width 0 calc(100vh - #{$header-width});
+  height: 100vh;
+  position: relative;
+  z-index: 10;
+  background-color: #caecff;
 }
 
 .view-loading {
