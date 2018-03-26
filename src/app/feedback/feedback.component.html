@@ -1,0 +1,43 @@
+<ng-container *ngIf="feedbackLoaded else loading">
+
+  <ng-container *ngIf="feedbackEnabled else disabled">
+    <div class="container">
+      <h2>Feedback</h2>
+      <p>We've integrated a direct way you can contibute feedback to let us know you think we have done right and what we can improve on. Your opinion matters and we want to hear from you.</p>
+
+      <div class="select-wrap">
+        <select [(ngModel)]="feedback.type">
+          <option value="" selected disabled>Feedback Type</option>
+          <option *ngFor="let item of feedbackTypes" [ngValue]="item.id">{{item.name}}</option>
+        </select>
+      </div>
+
+      <div class="input-wrap">
+        <input [(ngModel)]="feedback.type" placeholder="Type">
+      </div>
+
+      <div class="input-wrap">
+        <input [(ngModel)]="feedback.subject" placeholder="Subject">
+      </div>
+
+      <div class="input-wrap">
+        <input [(ngModel)]="feedback.body" placeholder="Feedback Body">
+      </div>
+
+      <button (click)="onSubmit()" type="button" class="submit">
+        <span class="copy">Submit Feedback</span>
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-template #disabled>
+    <div>
+      <h2>Feedback Disabled</h2>
+      <p>We are currently not accepting feedback at this time. Please check again later!</p>
+    </div>
+  </ng-template>
+</ng-container>
+
+<ng-template #loading>
+  <div class="view-loading">Loading...</div>
+</ng-template>

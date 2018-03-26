@@ -19,6 +19,7 @@ import { HeaderDirective } from './header.directive';
 /* App Modules */
 import { MessengerModule } from './messenger/messenger.module';
 import { WalletModule } from './wallet/wallet.module';
+import { FeedbackModule } from './feedback/feedback.module';
 import { AppCoreModule } from './app-core/app-core.module';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { AppCoreModule } from './app-core/app-core.module';
     FormsModule,
     MessengerModule,
     WalletModule,
+    FeedbackModule,
     AppRoutingModule,
     AppHelpersModule,
     AppCoreModule
