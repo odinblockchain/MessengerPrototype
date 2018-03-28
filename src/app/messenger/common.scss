@@ -1,4 +1,9 @@
 @import '~sass/variables';
+@import '~sass/mixins';
+
+.list-container {
+  @extend %container-wrap;
+}
 
 .list-container {
   position: relative;
@@ -11,8 +16,11 @@
   justify-content: center;
   align-content: center;
   grid-template-areas: "avatar item";
-  padding: 0.5rem 1rem;
   margin-top: 1rem;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
 
   &:after,
   &::after {

@@ -3,14 +3,21 @@
 
   <div class="list-container"
        *ngFor="let contact of contacts"
-       (click)="onSelect(contact)"
        [class.active]="contact === selectedContact">
-    <div class="avatar bubble">{{contact.name | avatarName | uppercase}}</div>
-    <div class="username list-item">
-      <span>{{contact.name}}</span>
-      <br>
-      <p><a [routerLink]="['./view', contact.id]">Link</a></p>
+    <div class="avatar bubble"
+         (click)="onSelect(contact)">
+      <div class="front">
+        {{contact.name | avatarName | uppercase}}
+      </div>
+      <div class="back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="ico-svg--check">
+          <path d="M0 11.522l1.578-1.626 7.734 4.619 13.335-12.526 1.353 1.354-14 18.646z"/>
+        </svg>
+      </div>
     </div>
+    <a class="username list-item" [routerLink]="['./view', contact.id]">
+      <span>{{contact.name}}</span>
+    </a>
     <div class="metadata">4:21 pm</div>
   </div>
 

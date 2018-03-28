@@ -5,6 +5,7 @@ import { Message }          from '../message';
 import { Contact }          from '../contact';
 import { MessengerService } from '../messenger.service';
 import { AppHeaderService } from '../../app-header.service';
+import { AppModalService }  from '../../app-modal.service';
 
 @Component({
   selector: 'app-edit-contact',
@@ -20,7 +21,8 @@ export class EditContactComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private messengerService: MessengerService,
-    private appHeader: AppHeaderService
+    private appHeader: AppHeaderService,
+    private appModal: AppModalService
   ) {
     this.appHeader.setAppHeader({
       title: 'Edit Contact',
@@ -49,16 +51,27 @@ export class EditContactComponent implements OnInit {
   }
 
   onDelete(contact : Contact) : void {
-    console.log('delete it...', contact);
-    this.messengerService.deleteContact$(contact)
-    .subscribe(res => {
-      console.log('GOT death', res);
+    console.info('confirm delete...');
 
-      this.contact = null;
-      this.router.navigate(['messenger']);
-    }, err => {
-      console.warn('ERR occurred');
-      console.warn(err);
+    this.appModal.showConfirmModal({title: 'Delete this contact?', body: `${contact.name} will be removed from your contact list and all associated messages will be wiped.`})
+    .subscribe(response => {
+      console.log('confirmModal Response:', response);
+
+      if (response) {
+        this.messengerService.deleteContact$(contact)
+        .subscribe(res => {
+          console.log('GOT death', res);
+        
+          this.contact = null;
+          this.router.navigate(['messenger']);
+        }, err => {
+          console.warn('ERR occurred');
+          console.warn(err);
+        });
+      }
+      else {
+        console.info('cancelled');
+      }
     });
   }
 

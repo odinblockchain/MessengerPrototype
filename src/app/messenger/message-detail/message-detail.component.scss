@@ -24,15 +24,15 @@
 }
 
 .message-input {
-  background-color: cyan;
+  background: #ffffff;
   position: fixed;
   z-index: 10;
   width: 100%;
   bottom: 0;
+  left: 0;
   padding: 5px;
 
   display: grid;
-  // grid-template-columns: 1fr 40px 45px;
   grid-template-columns: repeat(12, 1fr);
   grid-gap: 5px;
 
@@ -68,6 +68,11 @@
 
 .list-container {
 
+  &:after,
+  &::after {
+    bottom: -0.5rem;
+  }
+
   &.local {
     grid-template-areas: "item avatar";
     grid-template-columns: 1fr 50px;
@@ -84,6 +89,10 @@
 
   .list-item {
     grid-area: item;
+  }
+
+  .metadata {
+    display: none;
   }
 
   .message {

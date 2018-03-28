@@ -107,26 +107,27 @@
   </div>
 
   <div class="modal-box" (click)="appModal.onModalClick()">
-    <div class="modal-inner">
-      <header>
-        <h3>{{modalConfig.title}}</h3>
-        <p>{{modalConfig.type}}</p>
-      </header>
-      <section [ngSwitch]="modalConfig.type">
-        <p>{{modalConfig.body}}</p>
+    <div class="modal-inner u-shadow-400">
+      <div class="app-container">
+        <header>
+          <h3>{{modalConfig.title}}</h3>
+          <p>{{modalConfig.type}}</p>
+        </header>
+        <section [ngSwitch]="modalConfig.type">
+          <p>{{modalConfig.body}}</p>
 
-        <div *ngSwitchCase="'confirm'">
-          <button (click)="appModal.onConfirmAction(true)">Yes</button>
-          <button (click)="appModal.onConfirmAction(false)">No</button>
-        </div>
-        <div *ngSwitchCase="'notice'">
-          <button (click)="appModal.onConfirmAction(true)">Ok</button>
-        </div>
-        <div *ngSwitchDefault>
-          <!-- Missing -->
-        </div>
-
-      </section>
+          <div *ngSwitchCase="'confirm'">
+            <button (click)="appModal.onConfirmAction(true)">Yes</button>
+            <button (click)="appModal.onConfirmAction(false)">No</button>
+          </div>
+          <div *ngSwitchCase="'notice'">
+            <button (click)="appModal.onConfirmAction(true)">Ok</button>
+          </div>
+          <div *ngSwitchDefault>
+            <!-- Missing -->
+          </div>
+        </section>
+      </div>
     </div>
   </div>
 

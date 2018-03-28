@@ -7,8 +7,6 @@
   position: relative;
 }
 
-
-
 .new-contact {
   position: fixed;
   bottom: 5%;
@@ -47,8 +45,51 @@
 }
 
 .list-container {
+
   &:after,
   &::after {
     grid-column: 2/-1;
+  }
+
+  .username {
+    color: inherit;
+    font-size: 1.2rem;
+  }
+
+  .metadata {
+    display: none;
+  }
+
+  .avatar {
+    perspective: 1000px;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    .front,
+    .back {
+      backface-visibility: hidden;
+      position: absolute;
+    }
+
+    .front {
+      z-index: 2;
+      /* for firefox 31 */
+      transform: rotateY(0deg);
+    }
+
+    .back {
+      transform: rotateY(180deg);
+    }
+  }
+
+  &.active {
+    .avatar {
+      transform: rotateY(180deg);
+    }
   }
 }

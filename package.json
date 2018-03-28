@@ -1,10 +1,10 @@
 {
   "name": "messenger-prototype",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.config.json",
+    "start": "ng serve --proxy-config proxy.config.json --host 0.0.0.0 --disable-host-check",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",

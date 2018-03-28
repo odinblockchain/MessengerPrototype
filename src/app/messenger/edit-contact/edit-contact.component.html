@@ -2,17 +2,17 @@
   <h2>{{contact?.name}}</h2>
   <p>{{contact?.id}}</p>
 
-  <p>
+  <div class="input-wrap">
     <label>Contact Name:
       <input [(ngModel)]="contact.name" placeholder="name">
     </label>
-  </p>
+  </div>
 
-  <p>
+  <div class="input-wrap">
     <label>Contact Email:
       <input [(ngModel)]="contact.email" placeholder="email">
     </label>
-  </p>
+  </div>
 
   <p>
     <button
@@ -21,17 +21,7 @@
 
     <button
       class="button danger"
-      (click)="shouldConfirmDelete = true">Delete</button>
-  </p>
-
-  <p *ngIf="shouldConfirmDelete">
-    <button
-      class="button"
-      (click)="shouldConfirmDelete = false">No</button>
-
-    <button
-      class="button danger"
-      (click)="onDelete(contact)">Yes</button>
+      (click)="onDelete(contact)">Delete</button>
   </p>
 </div>
 

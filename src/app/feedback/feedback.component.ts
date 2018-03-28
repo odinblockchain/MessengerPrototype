@@ -41,7 +41,7 @@ export class FeedbackComponent implements OnInit {
       console.log('GOT IT', types);
       if (types['status'] && types['status'] === 'ok') {
         this.feedbackEnabled = true;
-        this.feedbackTypes = types['listOptions'];
+        this.feedbackTypes = types['options'];
       }
       this.feedbackLoaded = true;
     }, err => {

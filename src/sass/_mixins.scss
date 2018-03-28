@@ -16,3 +16,23 @@
         + "Please make sure it is defined in `$breakpoints` map.";
   }
 }
+
+%container-wrap {
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 100%;
+
+  @media (min-width: 576px) {
+    %container-wrap {
+      max-width: 540px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    %container-wrap {
+      max-width: 720px;
+    }
+  }
+}

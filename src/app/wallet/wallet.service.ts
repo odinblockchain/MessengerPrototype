@@ -28,7 +28,7 @@ export class WalletService {
 
   private unsubscribe: Subject<void> = new Subject();
 
-  constructor(private http: Http, private appModal: AppModalService,) {
+  constructor(private http: Http, private appModal: AppModalService) {
     // const obsv = new Observable(observer => {
     //
     //   setTimeout(() => {
