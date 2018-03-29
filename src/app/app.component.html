@@ -71,7 +71,9 @@
       <ng-container [ngSwitch]="showBackAction">
         <ng-template [ngSwitchCase]="true">
           <button class="menu-btn"
-                  (click)="goBackAction()"><</button>
+                  (click)="goBackAction()">
+            <i class="icon-arrow-left"></i>
+          </button>
         </ng-template>
         <ng-template ngSwitchDefault>
           <div class="menu-btn line-menu--wrap" (click)="toggleMenu()">
@@ -88,7 +90,7 @@
       <ng-container *ngIf="actionMenu.length > 0">
         <div class="action-btn"
              (click)="toggleActionMenu()">
-          <span></span>
+          <i class="icon-options-vertical"></i>
         </div>
       </ng-container>
 
