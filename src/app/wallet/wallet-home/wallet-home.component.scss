@@ -1,34 +1,112 @@
-.wallet--overview {
-  background-color: #eeeeee;
-  text-align: center;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2rem;
-  // height: 70px;
 
-  h3, p {
-    margin: 0;
+$cardBg: #dff7f1;
+$cardColor: #666666;
+
+.wallet--overview {
+  color: #ffffff;
+  margin-top: 2rem;
+
+  padding: 0.5rem 1rem;
+  min-height: 120px;
+
+  border-radius: 4px 4px 0 0;
+
+  display: flex;
+  align-items: flex-end;
+
+  background-color: #ffffff;
+  background-image: url(/assets/topography.svg), linear-gradient(110deg, #9bd3c7, #8c96be);
+  background-size: 340px, auto;
+  background-position: fixed;
+  position: relative;
+
+  dl {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    text-shadow: 0 1px 2px #333333;
   }
 
-  h3 {
-    align-self: end;
+  dt {
+    font-size: 2rem;
+  }
+
+  dd {
     font-size: 1em;
   }
 
-  p {
-    align-self: baseline;
-    font-size: 2em;
+  .balance {
+    &:after,
+    &::after {
+      content: 'ODIN';
+      margin-left: 0.3rem;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+    }
+  }
+
+  .icon {
+    font-size: 2rem;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    border: 2px solid #ffffff;
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #9bd3c7;
+    display: none;
+
+    i {
+      margin-top: -3px;
+    }
   }
 }
 
 .wallet--review {
-  background-color: #fff;
+  background-color: $cardBg;
+  color: $cardColor;
+  padding-bottom: 1rem;
 
-  h3 {
-    background-color: #eee;
-    padding: 5px;
+
+
+  .title,
+  dt,
+  dd {
+    padding: 0 1rem;
+  }
+
+  .title {
+    padding-top: 0.5rem;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    grid-template-areas: "label balance";
+    border-bottom: 1px solid #cecece;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  dd,
+  dt {
     margin: 0;
+  }
+
+  .label {
+    grid-area: label;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .balance {
+    grid-area: balance;
   }
 
   ul {

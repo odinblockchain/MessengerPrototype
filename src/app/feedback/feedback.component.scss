@@ -15,31 +15,3 @@
 :host {
   padding-top: 1rem;
 }
-
-button.submit {
-  display: block;
-  position: relative;
-  padding: 0;
-  margin: 0 auto;
-  width: 182px;
-  height: 45px;
-  border: 0;
-  border-radius: 0.25em;
-  background-color: #f16221;
-  transition: all 350ms ease-out 175ms;
-  overflow: hidden;
-  z-index: 3;
-
-  .copy {
-    color: #ffffff;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    width: 182px;
-    height: 45px;
-    line-height: 45px;
-    text-align: center;
-    position: absolute;
-    transition: top 150ms ease-in-out 360ms;
-  }
-}

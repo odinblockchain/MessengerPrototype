@@ -1,28 +1,42 @@
 <ng-container *ngIf="wallet else loading">
 
-  <div class="wallet--overview">
-    <h3>Balance</h3>
-    <p>{{walletBalance()}} <small>ODN</small></p>
-    <p><small>Rec|Send|New|Ref</small></p>
-  </div>
+  <div class="app-container">
 
-  <div class="app-container u-display-grid u-grid-gap2">
+    <div class="wallet--overview">
+      <dl>
+        <dt class="balance u-font-weight-300">{{walletBalance()}}</dt>
+        <dd class="title u-font-weight-200">Balance</dd>
+      </dl>
+      <div class="icon">
+        <i class="icon-wallet"></i>
+      </div>
+    </div>
+
     <div class="wallet--review wallet--review--adresses">
-      <h3>Addresses</h3>
-      <ul>
-        <li *ngFor="let address of wallet.addresses">{{address.label}} ... {{address.balance}}</li>
-      </ul>
-      <p><a [routerLink]="['./addresses']">Link To Addresses View</a></p>
+      <h3 class="title">Wallet Addresses</h3>
+      <dl *ngFor="let address of wallet.addresses">
+        <dt class="balance">{{address.balance}}</dt>
+        <dd class="label">{{address.label}}</dd>
+      </dl>
+      <button class="app-btn btn-brand btn-push-right"
+              [routerLink]="['./addresses']">
+        <span class="copy">View Addresses</span>
+      </button>
     </div>
 
     <div class="wallet--review wallet--review--transactions">
-      <h3>Transactions</h3>
-      <ul>
-        <li *ngFor="let transaction of wallet.transactions">{{transaction.txid}}</li>
-      </ul>
-      <p><a [routerLink]="['./transactions']">Link To Transactions View</a></p>
+      <h3 class="title">Wallet Activity</h3>
+      <dl *ngFor="let transaction of wallet.transactions">
+        <dt class="balance">{{transaction.amount}}</dt>
+        <dd class="label">{{transaction.txid}}</dd>
+      </dl>
+      <button class="app-btn btn-brand btn-push-right"
+              [routerLink]="['./transactions']">
+        <span class="copy">View Transactions</span>
+      </button>
     </div>
   </div>
+
 </ng-container>
 
 <ng-template #loading>
