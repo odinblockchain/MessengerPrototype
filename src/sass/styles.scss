@@ -361,7 +361,9 @@ app-root,
       z-index: 1000;
       opacity: 0.6;
     }
+  }
 
+  &.modal-active {
     .app-view {
       filter: blur(2px);
       transition: filter 250ms linear;
@@ -597,6 +599,11 @@ button.submit {
 
   &.btn-brand {
     background-color: $brandColor;
+    color: #394d48;
+
+    .copy {
+      color: #394d48;
+    }
   }
 
   &.btn-push-right {
@@ -617,4 +624,9 @@ button.submit {
       right: 15px;
     }
   }
+}
+
+.app-card {
+  background-color: #dff7f1;
+  color: #666666;
 }

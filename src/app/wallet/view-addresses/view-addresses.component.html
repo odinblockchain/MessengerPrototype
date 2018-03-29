@@ -1,9 +1,15 @@
 <ng-container *ngIf="addresses else loading">
-  <div class="wallet--review wallet--review--adresses">
-    <div class="address" *ngFor="let address of wallet.addresses">
-      <p class="address--label">{{address.label}}</p>
-      <p class="address--balance u-text-align-center"><span>{{address.balance}}</span> ODN</p>
-      <input class="address--public disabled" [(ngModel)]="address.publicKey" disabled />
+  <div class="app-container">
+    <div class="wallet--review wallet--review--adresses">
+
+      <div class="address app-card" *ngFor="let address of wallet.addresses">
+        <dl>
+          <dt class="balance">{{address.balance}}</dt>
+          <dd class="label">{{address.label}}</dd>
+        </dl>
+        <input class="address--public disabled" [(ngModel)]="address.publicKey" disabled />
+      </div>
+
     </div>
   </div>
 </ng-container>

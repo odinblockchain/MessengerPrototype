@@ -8,7 +8,7 @@ import { AppHeaderService } from '../../app-header.service';
 @Component({
   selector: 'app-wallet-home',
   templateUrl: './wallet-home.component.html',
-  styleUrls: ['./wallet-home.component.scss']
+  styleUrls: ['../common.scss', './wallet-home.component.scss']
 })
 export class WalletHomeComponent implements OnInit {
   wallet: Wallet;

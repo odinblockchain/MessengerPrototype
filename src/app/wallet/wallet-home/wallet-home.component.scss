@@ -4,7 +4,7 @@ $cardColor: #666666;
 
 .wallet--overview {
   color: #ffffff;
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   padding: 0.5rem 1rem;
   min-height: 120px;
@@ -34,16 +34,6 @@ $cardColor: #666666;
 
   dd {
     font-size: 1em;
-  }
-
-  .balance {
-    &:after,
-    &::after {
-      content: 'ODIN';
-      margin-left: 0.3rem;
-      font-size: 1.2rem;
-      letter-spacing: 2px;
-    }
   }
 
   .icon {

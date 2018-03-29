@@ -9,7 +9,7 @@ import { AppHeaderService } from '../../app-header.service';
 @Component({
   selector: 'app-view-transactions',
   templateUrl: './view-transactions.component.html',
-  styleUrls: ['./view-transactions.component.scss']
+  styleUrls: ['../common.scss', './view-transactions.component.scss']
 })
 export class ViewTransactionsComponent implements OnInit {
 

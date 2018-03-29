@@ -8,7 +8,7 @@ import { AppHeaderService } from '../../app-header.service';
 @Component({
   selector: 'app-view-addresses',
   templateUrl: './view-addresses.component.html',
-  styleUrls: ['./view-addresses.component.scss']
+  styleUrls: ['../common.scss', './view-addresses.component.scss']
 })
 export class ViewAddressesComponent implements OnInit {
 

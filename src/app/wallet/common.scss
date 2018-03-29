@@ -1,0 +1,31 @@
+.balance {
+  &:after,
+  &::after {
+    content: 'ODIN';
+    margin-left: 0.3rem;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+  }
+}
+
+.app-card {
+  border-radius: 4px;
+}
+
+.address,
+.transaction {
+  dl {
+    margin-bottom: 0;
+    display: grid;
+    grid-gap: 0.5rem;
+  }
+
+  dt {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  dd {
+    margin-bottom: 0;
+  }
+}
