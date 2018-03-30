@@ -14,6 +14,6 @@ export class AvatarNamePipe implements PipeTransform {
     if (input)
       return `${input.substr(0, 1)}`;
     else
-      return '';
+      return '?';
   }
 }

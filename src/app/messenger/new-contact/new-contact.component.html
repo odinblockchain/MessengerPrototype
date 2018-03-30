@@ -1,9 +1,19 @@
-<h2>Add New Contact</h2>
-<div>
-  <label>Contact Name:
-    <input [(ngModel)]="contact.name" placeholder="name">
-  </label>
-</div>
+<div class="app-container add-contact-wrapper">
 
-<button
-  (click)="onSave(contact)">Save</button>
+  <div class="avatar bubble bubble-lg">
+    {{contact.name | avatarName | uppercase}}
+  </div>
+
+  <div class="add-contact">
+    <div class="input-wrap input-plain">
+      <label>Name</label>
+      <input [(ngModel)]="contact.name" placeholder="">
+    </div>
+
+    <div class="actions">
+      <button (click)="onSave(contact)" type="button" class="app-btn btn-inverse btn-brand">
+        <span class="copy">Save</span>
+      </button>
+    </div>
+  </div>
+</div>
