@@ -22,6 +22,15 @@ body {
   color: $appTypographyColor;
 }
 
+*::selection,
+*::-webkit-selection,
+*-moz-selection,
+*-o-selection,
+*-ms-selection {
+  background-color: $blue;
+  color: #ffffff;
+}
+
 app-root,
 .app-root {
   display: block;
@@ -244,6 +253,12 @@ app-root,
   display: grid;
   justify-content: center;
   align-content: center;
+
+  &.bubble-lg {
+    height: 100px;
+    width: 100px;
+    font-size: 3rem;
+  }
 }
 
 .app {
@@ -449,6 +464,14 @@ button {
   }
 }
 
+.input-wrap,
+.select-wrap,
+.textarea-wrap {
+  margin-bottom: 1rem;
+
+  textarea, input, button { outline: none; }
+}
+
 .input-wrap {
   display: inline-block;
   position: relative;
@@ -460,6 +483,59 @@ button {
   }
 
   input {
+    padding: 5px 10px;
+    border-radius: 0.25em;
+    border: 1px solid #c3c3c3;
+    box-shadow: -1px 1px 3px #c3c3c3 inset;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    width: 100%;
+  }
+}
+
+.input-plain {
+  label {
+    color: #cccccc;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+  }
+
+  input {
+    background-color: transparent;
+    border-width: 0 0 1px 0;
+    box-shadow: none;
+    border-radius: 0;
+    color: #dddddd;
+    padding-left: 0;
+    border-color: #666666;
+
+    transition: all 150ms ease-in-out;
+
+    &:focus,
+    &:active {
+      color: #eeeeee;
+      border-color: #999999;
+    }
+
+    &.disabled,
+    &[disabled] {
+      border: none;
+
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.textarea-wrap {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+
+  textarea {
     padding: 5px 10px;
     border-radius: 0.25em;
     border: 1px solid #c3c3c3;
@@ -514,6 +590,7 @@ button {
     content: '\25BC';
     line-height: 100%;
     pointer-events: none;
+    color: #666666;
   }
 }
 
@@ -576,16 +653,17 @@ button.submit {
   padding: 0;
   margin: 0 auto;
   width: 182px;
-  height: 45px;
-  border: 0;
+  height: 47px;
+  border: 2px solid #dddddd;
   border-radius: 0.25em;
-  background-color: $red;
+  background-color: #dddddd;
   transition: all 350ms ease-out 175ms;
   overflow: hidden;
   z-index: 3;
+  color: #333333;
 
   .copy {
-    color: #ffffff;
+    color: #333333;
     top: 0;
     left: 0;
     overflow: hidden;
@@ -603,6 +681,69 @@ button.submit {
 
     .copy {
       color: #394d48;
+    }
+  }
+
+  &.btn-danger {
+    background-color: $red;
+    color: #ffffff;
+
+    .copy {
+      color: #ffffff;
+    }
+  }
+
+  &.btn-inverse {
+    background-color: transparent;
+    position: relative;
+
+    &:before {
+      content: '';
+      width: 0;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      transition: all 150ms linear;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      cursor: pointer;
+
+      &:before {
+        width: 100%;
+      }
+    }
+
+    &.btn-brand {
+      border-color: $brandColor;
+      color: #ffffff;
+
+      &:hover,
+      &:active,
+      &:focus {
+        &:before {
+          background-color: $brandColor;
+        }
+      }
+
+      .copy {
+        color: #ffffff;
+      }
+    }
+
+    &.btn-danger{
+      border-color: $red;
+
+      &:hover,
+      &:active,
+      &:focus {
+        &:before {
+          background-color: $red;
+        }
+      }
     }
   }
 

@@ -24,6 +24,10 @@
         <input [(ngModel)]="feedback.body" placeholder="Feedback Body">
       </div>
 
+      <div class="textarea-wrap">
+        <textarea [(ngModel)]="feedback.body" placeholder="Feedback"></textarea>
+      </div>
+
       <button (click)="onSubmit()" type="button" class="submit">
         <span class="copy">Submit Feedback</span>
       </button>

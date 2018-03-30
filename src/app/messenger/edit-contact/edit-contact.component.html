@@ -1,28 +1,30 @@
-<div class="edit-contact-wrapper" *ngIf="contact else loading">
-  <h2>{{contact?.name}}</h2>
-  <p>{{contact?.id}}</p>
+<div class="app-container edit-contact-wrapper" *ngIf="contact else loading">
 
-  <div class="input-wrap">
-    <label>Contact Name:
+  <div class="avatar bubble bubble-lg">
+    {{contact.name | avatarName | uppercase}}
+  </div>
+
+  <div class="edit-contact">
+    <div class="input-wrap input-plain">
+      <label>Name</label>
       <input [(ngModel)]="contact.name" placeholder="name">
-    </label>
+    </div>
+
+    <div class="input-wrap input-plain disabled">
+      <label>ID</label>
+      <input class="disabled" placeholder="Contact ID" value="{{contact.id}}" />
+    </div>
+
+    <div class="actions">
+      <button (click)="onSave(contact)" type="button" class="app-btn btn-inverse btn-brand">
+        <span class="copy">Save</span>
+      </button>
+
+      <button (click)="onDelete(contact)" type="button" class="app-btn btn-inverse btn-danger">
+        <span class="copy">Delete</span>
+      </button>
+    </div>
   </div>
-
-  <div class="input-wrap">
-    <label>Contact Email:
-      <input [(ngModel)]="contact.email" placeholder="email">
-    </label>
-  </div>
-
-  <p>
-    <button
-      class="button"
-      (click)="onSave(contact)">Save</button>
-
-    <button
-      class="button danger"
-      (click)="onDelete(contact)">Delete</button>
-  </p>
 </div>
 
 <ng-template #loading>

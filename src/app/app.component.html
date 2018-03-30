@@ -116,12 +116,12 @@
     <router-outlet></router-outlet>
   </div>
 
-  <div class="modal-box" (click)="appModal.onModalClick()">
+  <div class="modal-box" (click)="appModal.onModalClick()" [attr.data-type]="modalConfig?.type">
     <div class="modal-inner u-shadow-400">
       <div class="app-container">
         <header>
           <h3>{{modalConfig.title}}</h3>
-          <p>{{modalConfig.type}}</p>
+          <p></p>
         </header>
         <section [ngSwitch]="modalConfig.type">
           <p>{{modalConfig.body}}</p>
