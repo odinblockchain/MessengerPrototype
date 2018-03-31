@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AppHeaderService } from '../app-header.service';
+import { AppNotificationService } from '../app-notification.service';
 import { Feedback } from './Feedback';
 
 import { FeedbackType } from './FeedbackType';
@@ -12,9 +14,10 @@ import { FeedbackService } from './feedback.service';
   styleUrls: ['./feedback.component.scss']
 })
 export class FeedbackComponent implements OnInit {
-  formToken: string;
   feedbackLoaded: boolean = false;
   feedbackEnabled: boolean = false;
+
+  feedbackForm : FormGroup;
 
   feedback: Feedback = {
     type: '',
@@ -26,36 +29,72 @@ export class FeedbackComponent implements OnInit {
 
   constructor(
     private feedbackService: FeedbackService,
-    private appHeader: AppHeaderService) {
+    private appHeader: AppHeaderService,
+    private appNotification: AppNotificationService,
+    private fb: FormBuilder) {
 
     this.appHeader.setAppHeader({
       title: 'User Feedback'
     });
 
     this.feedbackTypes = [];
+
+    this.feedbackForm = fb.group({
+      'type': ['', Validators.required],
+      'subject': '',
+      'body': [null, Validators.required]
+    })
   }
 
   ngOnInit() {
     this.feedbackService.fetchFeedbackTypes$()
     .subscribe(types => {
-      console.log('GOT IT', types);
       if (types['status'] && types['status'] === 'ok') {
         this.feedbackEnabled = true;
         this.feedbackTypes = types['options'];
       }
       this.feedbackLoaded = true;
     }, err => {
-      console.warn('Error occurred');
-      console.warn(err);
+      console.warn('Feedback load error', err);
       this.feedbackLoaded = true;
     });
   }
 
-  onSubmit = () : void => {
-    console.log('submit', this.feedback);
-    this.feedbackService.postFeedback$(this.feedback)
+  handleError(error:any) : void {
+    let errorMessage = (error.message) ? error.message : 'We are unable to accept feedback at this time. Please try again later';
+    console.log(this.feedbackForm);
+
+    if (error.field) {
+      this.feedbackForm.controls[error.field].setErrors({'required': true});
+    }
+
+    this.appNotification.displayNotification({
+      type: 'warning',
+      body: errorMessage
+    });
+  }
+
+  handleSuccess() : void {
+    this.feedbackForm.reset();
+    this.appNotification.displayNotification({
+      type: 'success',
+      body: 'Feedback received!'
+    });
+  }
+
+  submitForm = (form: any): void => {
+    console.log('submit', form);
+
+    this.feedbackService.postFeedback$(form)
     .subscribe(res => {
       console.log('GOT POST', res);
+      if (res.status && res.status === 'ok') {
+        return this.handleSuccess();
+      }
+      else {
+        let error = (res.error) ? res.error : {};
+        return this.handleError(error);
+      }
     });
   }
 }

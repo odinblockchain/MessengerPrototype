@@ -31,6 +31,18 @@ body {
   color: #ffffff;
 }
 
+button, a {
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
+
 app-root,
 .app-root {
   display: block;
@@ -437,6 +449,42 @@ button {
   }
 }
 
+.app-notification {
+  background-color: #dddddd;
+  color: #333333;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  z-index: 1000;
+  transform: translate3d(0, 20vh, 0);
+  padding-bottom: 2rem;
+
+  &.warning {
+    background-color: $red;
+    color: #ffffff;
+  }
+
+  &.success {
+    background-color: $green;
+  }
+
+  .notification {
+    padding: 0.5rem;
+  }
+}
+
+.notification-active {
+
+  .app-notification {
+    transform: translate3d(0, 0, 0);
+    bottom: -2rem;
+
+    @supports (animation: animSlideUp) or (-webkit-animation: animSlideUp) {
+      animation: animSlideUp 1000ms linear both;
+    }
+  }
+}
+
 .modal-box {
   position: fixed;
   top: 0;
@@ -464,12 +512,51 @@ button {
   }
 }
 
-.input-wrap,
-.select-wrap,
-.textarea-wrap {
+.form-input {
   margin-bottom: 1rem;
 
-  textarea, input, button { outline: none; }
+  textarea, input, select, button { outline: none; }
+
+  &.has-error {
+    select {
+      border-color: $red;
+      color: $red;
+    }
+
+    input {
+      border-color: $red;
+      color: $red;
+    }
+
+    textarea {
+      border-color: $red;
+      color: $red;
+    }
+  }
+
+  &.required-input {
+    label {
+      position: relative;
+
+      &:after {
+        content: '*';
+        color: $red;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  .validation {
+    color: #333333;
+    background-color: #eeeeee;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+
+    &.validation-error {
+      background-color: $red;
+      color: #ffffff;
+    }
+  }
 }
 
 .input-wrap {
@@ -594,55 +681,29 @@ button {
   }
 }
 
-.icon-check {
-  display: inline-block;
-    vertical-align: middle;
-    position: relative;
-    font-style: normal;
-    color: #ddd;
-    text-align: left;
-    text-indent: -9999px;
-    direction: ltr;
-}
-
-svg[class*="ico-svg"] {
-  path {
-    fill: #ffffff;
-  }
-}
-
-.icon-check {
-  width: 28px;
-  height: 28px;
-  margin: 3px 0 3px 6px;
-  transform: rotate(-45deg);
-
-  &:before, &::before,
-  &:after, &::after {
-    content: '';
-  }
+button.submit:not([disabled]) {
+  position: relative;
 
   &:before,
   &::before {
-    box-shadow: inset 0 0 0 32px;
-    width: 20px;
-    height: 2px;
-
+    content: '';
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    display: block;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: scale(0.001, 0.001);
   }
 
-  &:after,
-  &::after {
-    box-shadow: inset 0 0 0 32px;
-    width: 2px;
-    height: 12px;
-
-    position: absolute;
-    left: 4px;
-    bottom: 14px;
+  &:focus,
+  &:active {
+    &:before,
+    &::before {
+      animation: animButtonPress 0.8s ease-out;
+    }
   }
 }
 
@@ -673,6 +734,11 @@ button.submit {
     text-align: center;
     position: absolute;
     transition: top 150ms ease-in-out 360ms;
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   &.btn-brand {

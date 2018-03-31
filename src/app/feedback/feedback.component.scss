@@ -1,17 +1,9 @@
-// select {
-//   border: 1px solid #000000;
-//   color: #000000;
-//   background-color: #ffffff;
-//
-//   option {
-//     color: #000000;
-//
-//     &:disabled {
-//       color: red;
-//     }
-//   }
-// }
-
 :host {
   padding-top: 1rem;
+  padding-bottom: 2rem;
+  overflow: scroll;
+}
+
+.textarea-wrap textarea {
+  min-height: 6rem;
 }

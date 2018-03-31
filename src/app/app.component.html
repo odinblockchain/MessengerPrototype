@@ -1,7 +1,8 @@
 <div class="app-inner"
      [class.drawer-open]="menuActive === true"
      [class.action-menu-open]="actionMenuActive === true"
-     [class.modal-active]="modalActiveState === true">
+     [class.modal-active]="modalActiveState === true"
+     [class.notification-active]="notificationState === true">
 
   <!-- App Drawer -->
   <div class="app-nav-wrapper flex-scroll">
@@ -138,6 +139,12 @@
           </div>
         </section>
       </div>
+    </div>
+  </div>
+
+  <div class="app-notification {{notificationConfig?.type}}">
+    <div class="notification">
+      <p>{{notificationConfig?.body}}</p>
     </div>
   </div>
 

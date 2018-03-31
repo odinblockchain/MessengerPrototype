@@ -5,32 +5,48 @@
       <h2>Feedback</h2>
       <p>We've integrated a direct way you can contibute feedback to let us know you think we have done right and what we can improve on. Your opinion matters and we want to hear from you.</p>
 
-      <div class="select-wrap">
-        <select [(ngModel)]="feedback.type">
-          <option value="" selected disabled>Feedback Type</option>
-          <option *ngFor="let item of feedbackTypes" [ngValue]="item.id">{{item.name}}</option>
-        </select>
-      </div>
+      <form [formGroup]="feedbackForm" (ngSubmit)="submitForm(feedbackForm.value)">
 
-      <div class="input-wrap">
-        <input [(ngModel)]="feedback.type" placeholder="Type">
-      </div>
+        <div class="form-input required-input"
+             [ngClass]="{'has-error':!feedbackForm.controls['type'].valid && feedbackForm.controls['type'].touched}">
+          <label for="type">Feedback Category</label>
+          <div class="select-wrap">
+            <select name="type"
+                    id="type"
+                    [formControl]="feedbackForm.controls['type']">
+              <option value="" disabled selected>---</option>
+              <option *ngFor="let item of feedbackTypes" [ngValue]="item.id">{{item.name}}</option>
+            </select>
+          </div>
 
-      <div class="input-wrap">
-        <input [(ngModel)]="feedback.subject" placeholder="Subject">
-      </div>
+          <div class="validation validation-error" *ngIf="!feedbackForm.controls['type'].valid && feedbackForm.controls['type'].touched">You must choose a feedback category!</div>
+        </div>
 
-      <div class="input-wrap">
-        <input [(ngModel)]="feedback.body" placeholder="Feedback Body">
-      </div>
+        <div class="form-input">
+          <label for="subject">Feedback Subject</label>
+          <div class="input-wrap">
+            <input type="text"
+                   class="form-control"
+                   name="subject"
+                   id="subject"
+                   placeholder="optional" [formControl]="feedbackForm.controls['subject']">
+          </div>
+        </div>
 
-      <div class="textarea-wrap">
-        <textarea [(ngModel)]="feedback.body" placeholder="Feedback"></textarea>
-      </div>
+        <div class="form-input required-input"
+             [ngClass]="{'has-error':!feedbackForm.controls['body'].valid && feedbackForm.controls['body'].touched}">
+          <label for="body">Feedback</label>
+          <div class="textarea-wrap">
+            <textarea required placeholder="" name="body" id="body" [formControl]="feedbackForm.controls['body']"></textarea>
+          </div>
 
-      <button (click)="onSubmit()" type="button" class="submit">
-        <span class="copy">Submit Feedback</span>
-      </button>
+          <div class="validation validation-error" *ngIf="feedbackForm.controls['body'].hasError('required') && feedbackForm.controls['body'].touched">You must include some feedback!</div>
+        </div>
+
+        <button type="submit" class="submit" [disabled]="!feedbackForm.valid">
+          <span class="copy">Submit Feedback</span>
+        </button>
+      </form>
     </div>
   </ng-container>
 

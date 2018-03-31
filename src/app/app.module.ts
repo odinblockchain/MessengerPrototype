@@ -10,6 +10,7 @@ import { AppHelpersModule } from './app-helpers/app-helpers.module';
 /* App Services */
 import { AppHeaderService } from './app-header.service';
 import { AppModalService } from './app-modal.service';
+import { AppNotificationService } from './app-notification.service';
 
 import { MockResponseService } from './app-helpers/mock-response.service';
 
@@ -40,6 +41,7 @@ import { AppCoreModule } from './app-core/app-core.module';
   providers: [
     AppHeaderService,
     AppModalService,
+    AppNotificationService,
     MockResponseService
   ],
   bootstrap: [

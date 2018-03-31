@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {Location} from '@angular/common';
 import { Router, NavigationStart, NavigationEnd, Event as NavigationEvent } from '@angular/router';
 
-import { AppHeaderService } from "./app-header.service";
-import { AppModalService } from "./app-modal.service";
+import { AppHeaderService } from './app-header.service';
+import { AppModalService } from './app-modal.service';
+import { AppNotificationService } from './app-notification.service';
 
 import { MockResponseService } from './app-helpers/mock-response.service';
 
@@ -17,7 +18,10 @@ export class AppComponent implements OnInit {
   menuActive = false;
 
   modalActiveState = false;
+  notificationState = false;
+
   modalConfig = {};
+  notificationConfig = {};
 
   actionMenuActive = false;
 
@@ -31,6 +35,7 @@ export class AppComponent implements OnInit {
     private _location: Location,
     private appHeader: AppHeaderService,
     private appModal: AppModalService,
+    private appNotification: AppNotificationService,
     private mockResponse: MockResponseService) {
     /*  Route event types
         NavigationEnd
@@ -67,6 +72,9 @@ export class AppComponent implements OnInit {
 
     this.appModal.showModal.subscribe(state => this.modalActiveState = state);
     this.appModal.modal.subscribe(modal => this.modalConfig = modal);
+
+    this.appNotification.showNotification.subscribe(state => this.notificationState = state);
+    this.appNotification.notification.subscribe(notification => this.notificationConfig = notification);
   }
 
   toggleMenu(active?: boolean): void {
