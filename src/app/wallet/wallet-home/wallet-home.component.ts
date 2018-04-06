@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Address } from '../address';
-import { Wallet } from '../wallet';
+import { Address } from '../Address';
+import { Wallet } from '../Wallet';
 import { WalletService } from '../wallet.service';
 import { AppHeaderService } from '../../app-header.service';
 

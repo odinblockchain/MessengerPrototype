@@ -11,9 +11,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/publish';
 
-import { Address }  from './address';
-import { Transaction }  from './transaction';
-import { Wallet }  from './wallet';
+import { Address }  from './Address';
+import { Transaction }  from './Transaction';
+import { Wallet }  from './Wallet';
 
 import { MockWallet } from './mock/wallet';
 

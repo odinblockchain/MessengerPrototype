@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Address } from '../address';
-import { Wallet } from '../wallet';
-import { Transaction } from '../transaction';
+import { Address } from '../Address';
+import { Wallet } from '../Wallet';
+import { Transaction } from '../Transaction';
 import { WalletService } from '../wallet.service';
 import { AppHeaderService } from '../../app-header.service';
 
