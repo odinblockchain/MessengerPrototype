@@ -22,15 +22,12 @@ import 'rxjs/add/operator/multicast';
 @Injectable()
 export class FeedbackService {
 
-  // TODO remove
-  private contactsUrl = 'http://localhost:3000/api/fetch-users';
-
   constructor(private http: Http) { }
 
   fetchFeedbackTypes$() : Observable<FeedbackType[]> {
     console.info('fetchFeedbackTypes$');
 
-    return this.http.get(`http://localhost:4201/api/feedback-options`, { withCredentials: true })
+    return this.http.get(`/api/feedback-options`, { withCredentials: true })
     .map((res : Response) => {
       console.log('response', res);
       return this.parseData(res);
@@ -44,7 +41,7 @@ export class FeedbackService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers, withCredentials: true });
 
-    return this.http.post(`http://localhost:4201/api/feedback-submit`, feedback, options)
+    return this.http.post(`/api/feedback-submit`, feedback, options)
     .map((res : Response) => {
       console.log('response', res);
       return this.parseData(res);

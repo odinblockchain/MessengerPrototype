@@ -7,6 +7,7 @@ import { AppModalService } from './app-modal.service';
 import { AppNotificationService } from './app-notification.service';
 
 import { MockResponseService } from './app-helpers/mock-response.service';
+import { Modal } from './Modal';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
   modalActiveState = false;
   notificationState = false;
 
-  modalConfig = {};
+  modalConfig = Modal;
   notificationConfig = {};
 
   actionMenuActive = false;
@@ -29,6 +30,8 @@ export class AppComponent implements OnInit {
   showBackAction = false;
 
   actionMenu = <any>[];
+
+  appReady = false;
 
   constructor(
     private router: Router,
@@ -58,10 +61,6 @@ export class AppComponent implements OnInit {
         if (this.actionMenuActive === true) this.actionMenuActive = false;
       }
     });
-
-    // this.appHeader.title.subscribe(message => this.title = message);
-    // this.appHeader.showMenuAction.subscribe(displayState => this.showMenuAction = displayState);
-    // this.appHeader.showBackAction.subscribe(displayState => this.showBackAction = displayState);
   }
 
   ngOnInit() {
@@ -75,6 +74,8 @@ export class AppComponent implements OnInit {
 
     this.appNotification.showNotification.subscribe(state => this.notificationState = state);
     this.appNotification.notification.subscribe(notification => this.notificationConfig = notification);
+
+    this.appReady = true;
   }
 
   toggleMenu(active?: boolean): void {
@@ -90,5 +91,14 @@ export class AppComponent implements OnInit {
   goBackAction() : void {
     console.log('goback');
     this._location.back();
+  }
+
+  modalClick(e) : void {
+    console.log('e', e);
+    this.appModal.onModalClick();
+  }
+
+  modalConfirm(confirmation?:boolean) : void {
+    this.appModal.onConfirmAction(confirmation);
   }
 }

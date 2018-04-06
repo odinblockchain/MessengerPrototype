@@ -25,46 +25,6 @@
     </div>
   </div>
 
-  <div style="display:none" class="menu-wrapper flex-scroll">
-    <div class="scroll-wrap">
-      <div class="menu scroller">
-        <header>Menu Name</header>
-        <div class="list">
-          <p>Some Friend Namedwdwdwdwdwdwdwdwdwdw</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-          <p>Some Friend Name</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- App View -->
   <div class="app-view" [class.open]="menuActive === true">
     <header class="header">
@@ -117,36 +77,38 @@
     <router-outlet></router-outlet>
   </div>
 
-  <div class="modal-box" (click)="appModal.onModalClick()" [attr.data-type]="modalConfig?.type">
-    <div class="modal-inner u-shadow-400">
-      <div class="app-container">
-        <header>
-          <h3>{{modalConfig.title}}</h3>
-          <p></p>
-        </header>
-        <section [ngSwitch]="modalConfig.type">
-          <p>{{modalConfig.body}}</p>
+  <ng-container *ngIf="appReady">
+  <div class="modal-box" (click)="modalClick" [attr.data-type]="modalConfig?.type">
+  <div class="modal-inner u-shadow-400">
+    <div class="app-container">
+      <header>
+        <h3>{{modalConfig?.title}}</h3>
+        <p></p>
+      </header>
+      <section [ngSwitch]="modalConfig?.type">
+        <p>{{modalConfig?.body}}</p>
 
-          <div *ngSwitchCase="'confirm'">
-            <button (click)="appModal.onConfirmAction(true)">Yes</button>
-            <button (click)="appModal.onConfirmAction(false)">No</button>
-          </div>
-          <div *ngSwitchCase="'notice'">
-            <button (click)="appModal.onConfirmAction(true)">Ok</button>
-          </div>
-          <div *ngSwitchDefault>
-            <!-- Missing -->
-          </div>
-        </section>
-      </div>
+        <div *ngSwitchCase="'confirm'">
+          <button (click)="modalConfirm(true)">Yes</button>
+          <button (click)="modalConfirm(false)">No</button>
+        </div>
+        <div *ngSwitchCase="'notice'">
+          <button (click)="modalConfirm(true)">Ok</button>
+        </div>
+        <div *ngSwitchDefault>
+          <!-- Missing -->
+        </div>
+      </section>
     </div>
   </div>
+</div>
 
-  <div class="app-notification {{notificationConfig?.type}}">
-    <div class="notification">
-      <p>{{notificationConfig?.body}}</p>
-    </div>
+<div class="app-notification {{notificationConfig?.type}}">
+  <div class="notification">
+    <p>{{notificationConfig?.body}}</p>
   </div>
+</div>
+</ng-container>
 
   <!-- Blocker -->
   <div class="blocker"

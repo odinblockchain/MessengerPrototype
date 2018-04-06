@@ -5,7 +5,6 @@ import { HttpModule }     from '@angular/http';
 
 import { MockBackend } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
-import { MockMessengerBackend } from './mock/mockdb.service';
 
 import { MessengerComponent }    from './messenger.component';
 import { MessageDetailComponent }  from './message-detail/message-detail.component';
@@ -40,7 +39,6 @@ import { AppHelpersModule } from '../app-helpers/app-helpers.module';
   ],
   providers: [
     MessengerService,
-    MockMessengerBackend,
     MockBackend,
     BaseRequestOptions
   ]

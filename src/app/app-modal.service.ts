@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import { Modal } from './Modal';
 
 @Injectable()
 export class AppModalService {
@@ -9,12 +10,18 @@ export class AppModalService {
   private showModalSource = new BehaviorSubject<boolean>(false);
   showModal = this.showModalSource.asObservable();
 
-  private modalSource = new BehaviorSubject<any>({});
+  private modalSource = new BehaviorSubject<any>(Modal);
   modal = this.modalSource.asObservable();
 
   private modalObserver = null;
 
-  constructor() { }
+  constructor() {
+    this.modalSource.next({
+      type:'',
+      title:'',
+      body:''
+    })
+  }
 
   showConfirmModal(options?:any) : Observable<boolean> {
     return new Observable(observer => {
@@ -43,8 +50,8 @@ export class AppModalService {
     });
   }
 
-  onModalClick = (e) : void => {
-    console.log('onModalClick', e);
+  onModalClick = () : void => {
+    console.log('onModalClick');
   }
 
   onConfirmAction = (action?:boolean) : void => {

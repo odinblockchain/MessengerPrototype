@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 /* App Core */
+import { AppCoreModule } from './app-core/app-core.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routes';
 import { AppHelpersModule } from './app-helpers/app-helpers.module';
@@ -21,7 +22,6 @@ import { HeaderDirective } from './header.directive';
 import { MessengerModule } from './messenger/messenger.module';
 import { WalletModule } from './wallet/wallet.module';
 import { FeedbackModule } from './feedback/feedback.module';
-import { AppCoreModule } from './app-core/app-core.module';
 
 @NgModule({
   declarations: [
