@@ -13,8 +13,25 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+### Production Optimisation
+Run `npm run build` to build this project with production-ready optimisations. It will also generate the source maps to allow debugging on the browser level and allow for bundle inspections.
+
+[Read More](https://angular.io/guide/deployment#optimize-for-production)
+
+### Bundle Inspection
+To view a visual representation of how large various modules and components are within the MessengerPrototype you can optionally install the `source-map-explorer` and run an analysis on a bundled JavaScript asset.
+
+```
+# List generated production build bundles
+ls dist/*.bundle.js
+
+# Run explorer to general graphical representation of data
+node_modules/.bin/source-map-explorer dist/main.*.bundle.js
+```
+
+[Read More](https://angular.io/guide/deployment#inspect-the-bundles)
 
 ## Running unit tests
 
@@ -27,4 +44,3 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
->>>>>>> chore: initial commit from @angular/cli
