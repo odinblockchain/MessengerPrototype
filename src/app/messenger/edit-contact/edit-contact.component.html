@@ -1,32 +1,53 @@
-<div class="app-container edit-contact-wrapper" *ngIf="contact else loading">
+<ng-container *ngIf="contact else loading">
+  <div class="app-container edit-contact-wrapper">
 
-  <div class="avatar bubble bubble-lg">
-    {{contact.name | avatarName | uppercase}}
+    <div class="avatar bubble bubble-lg">{{contactForm.controls['name'].value | avatarName | uppercase}}</div>
+
+    <div class="edit-contact">
+
+      <form [formGroup]="contactForm"
+            (ngSubmit)="onSave(contactForm.getRawValue())">
+
+        <div class="form-input required-input"
+             [ngClass]="{'has-error':!contactForm.controls['name'].valid && contactForm.controls['name'].touched}">
+          <label for="type">Name</label>
+          <div class="input-wrap">
+            <input type="text"
+                   class="form-control"
+                   name="name"
+                   id="name"
+                   placeholder="" [formControl]="contactForm.controls['name']">
+          </div>
+          <div class="validation validation-error" *ngIf="!contactForm.controls['name'].valid && contactForm.controls['name'].touched">You must enter a name!</div>
+        </div>
+
+        <div class="form-input disabled">
+          <label for="type">ID</label>
+          <div class="input-wrap">
+            <input type="text"
+                   class="form-control disabled"
+                   name="id"
+                   id="id"
+                   placeholder="Contact ID"
+                   [formControl]="contactForm.controls['id']">
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="app-btn btn-inverse btn-brand" [disabled]="!contactForm.valid">
+            <span class="copy">Save</span>
+          </button>
+
+          <button (click)="onDelete(contact)" type="button" class="app-btn btn-inverse btn-danger">
+            <span class="copy">Delete</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
   </div>
-
-  <div class="edit-contact">
-    <div class="input-wrap input-plain">
-      <label>Name</label>
-      <input [(ngModel)]="contact.name" placeholder="name">
-    </div>
-
-    <div class="input-wrap input-plain disabled">
-      <label>ID</label>
-      <input class="disabled" placeholder="Contact ID" value="{{contact.id}}" />
-    </div>
-
-    <div class="actions">
-      <button (click)="onSave(contact)" type="button" class="app-btn btn-inverse btn-brand">
-        <span class="copy">Save</span>
-      </button>
-
-      <button (click)="onDelete(contact)" type="button" class="app-btn btn-inverse btn-danger">
-        <span class="copy">Delete</span>
-      </button>
-    </div>
-  </div>
-</div>
+</ng-container>
 
 <ng-template #loading>
-  <div class="view-loading">Loading...</div>
+  <app-loading></app-loading>
 </ng-template>

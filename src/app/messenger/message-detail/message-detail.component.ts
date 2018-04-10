@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewChecked } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/multicast';
 
-import { Message }          from '../message';
-import { Contact }          from '../contact';
+/* Models */
+import { Message }          from '../Message';
+import { Contact }          from '../Contact';
+
+/* Services */
 import { MessengerService } from '../messenger.service';
 import { AppHeaderService } from '../../app-header.service';
 import { AppModalService } from '../../app-modal.service';
-
 import { WalletService } from '../../wallet/wallet.service';
 import { IdentityService } from '../../app-core/identity.service';
 import { MockResponseService } from '../../app-helpers/mock-response.service';
-
-import 'rxjs/add/operator/multicast';
 
 let onSelect : (message: Message) => void;
 
@@ -25,21 +26,24 @@ let onSelect : (message: Message) => void;
   templateUrl: './message-detail.component.html',
   styleUrls: ['../common.scss', './message-detail.component.scss']
 })
-export class MessageDetailComponent implements OnInit {
+export class MessageDetailComponent implements OnInit, AfterViewChecked {
   message: Message;
   contact: Contact;
   contactId: string;
+
   messages: Message[];
   selectedMessage: Message;
-
 
   newMessage: string;
   odnAmount: number;
 
   showAttachMenu: boolean = false;
-
   showMessageInput: boolean = true;
   showPaymentInput: boolean = false;
+  shouldScrollView: boolean = true;
+  inputHasWarning: boolean = false;
+
+  autoScrollTimeoutId = null;
 
   private unsubscribe: Subject<void> = new Subject();
 
@@ -51,114 +55,82 @@ export class MessageDetailComponent implements OnInit {
     private appModal: AppModalService,
     private walletService: WalletService,
     private identity: IdentityService,
-    private mockResponse: MockResponseService
+    private mockResponse: MockResponseService,
+    private el: ElementRef
   ) {
     this.appHeader.setAppHeader({
-      title: 'Loading Contact',
+      title: 'Loading Messages',
       showBackAction: true
     });
   }
 
-  ngAfterViewInit() {
-
-  }
+  /*  View State Methods
+  */
 
   ngOnInit() {
-    let id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     this.contactId = id;
-    this.getMessages(this.contactId);
-    this.getContactDetails(this.contactId);
+    this.getContactDetails();
 
-    // let m = this.messengerService.source.multicast(new Subject<number>());
-    // m.subscribe(this.messengerService.observe('a'));
-    // m.subscribe(this.messengerService.observe('b'));
-    // m.connect();
     this.messengerService.messageStream
     .map(messages => {
       return messages.filter(message => message.contactId === this.contactId);
     })
-    .subscribe(modal => {
-      console.info('===> messageStream', modal);
-      this.messages = modal;
+    .subscribe(messages => {
+      console.info('===> messageStream', messages);
+      this.messages = messages;
+
+      this.autoScrollTimeoutId = setTimeout(()=>{
+        this.scrollToRecentMessage();
+      }, 2000);
     });
 
-    // setTimeout(()=> {
-    //   console.log('setting');
-    //   this.messengerService.messageStreamSource.next('foo');
-    // }, 3000);
-
-
-    // this.appHeader.setAppHeader({
-    //   title: 'Messenger Detail',
-    //   showBackAction: true
-    // })
-
-    // this.appHeader.setAppHeader({
-    //   title: 'Message Detail',
-    //   showBackAction: true,
-    //   actions: [
-    //     { label: 'Edit Contact', link: '/edit' },
-    //     { label: 'Delete Contact', link: '/delete' }
-    //   ]
-    // });
-
-    // this.messageId = this.route.paramMap
-    // .switchMap((params: ParamMap) => {
-    //   return params.get('id');
-    // });
-    // this.message$ = this.route.paramMap
-    // .switchMap((params: ParamMap) =>
-    //   this.service.getHero(params.get('id')));
+    this.autoScrollTimeoutId = setTimeout(()=>{
+      this.shouldScrollView = false;
+    }, 3000);
   }
 
+  ngAfterViewChecked() {
+    if (this.shouldScrollView) this.scrollToRecentMessage();
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.autoScrollTimeoutId);
+  }
+
+  scrollToRecentMessage() : void {
+    this.el.nativeElement.parentElement.scrollTop = this.messageListScrollHeight();
+  }
+
+  messageListScrollHeight() : number {
+    try {
+      return this.el.nativeElement.parentElement.scrollHeight;
+    } catch (err) {
+      console.warn('!! Unable to determine message list height', err);
+      return 0;
+    }
+  }
+
+  /*  View Action Methods
+  */
   onSelect = (message) => {
+    this.shouldScrollView = false;
     if (this.selectedMessage === message) {
       return this.selectedMessage = null;
     }
-
+    console.log('onSelect');
     this.selectedMessage = message;
   }
 
-  onSend() : void {
+  onSend = () : void => {
+    this.inputHasWarning = false;
     if (this.showPaymentInput === true) {
       // handle payment send
-      if (isNaN(this.odnAmount)) {
-        console.warn('invalid amount, must be numeric');
-        this.odnAmount = 0;
-        return;
-      }
-
-      this.odnAmount = Number(this.odnAmount);
-      this.walletService.sendTransaction(this.contactId, this.odnAmount)
-      .takeUntil(this.unsubscribe)
-      .subscribe(response => {
-        console.info('sendTransaction response', response);
-
-        if (response) {
-          this.messengerService.sendMessage$(this.contactId, `${this.odnAmount} ODN has been sent`, { type: 'payment-out', amount: this.odnAmount })
-          .subscribe(message => {
-            console.log('GOT MESSAGE', message);
-            this.onAttach();
-            this.odnAmount = 0;
-            // this.mockResponse.triggerMock(message);
-          });
-        }
-      });
+      this.sendPaymentMessage();
     }
     else if (this.showMessageInput === true) {
       // handle message send
-      if (!this.newMessage) return console.warn('message empty');
-      if (this.newMessage.replace(/\s/g, '') === '') return console.warn('invalid message');
-
-      console.log('onsend!', this.newMessage);
-
-      this.messengerService.sendMessage$(this.contactId, this.newMessage)
-      .subscribe(message => {
-        console.log('GOT MESSAGE', message);
-
-        this.newMessage = '';
-        this.mockResponse.triggerMock(message);
-      });
+      this.sendTextMessage();
     }
   }
 
@@ -166,7 +138,6 @@ export class MessageDetailComponent implements OnInit {
     console.log('onAttach click');
     this.toggleAttachMenu();
     if (this.showAttachMenu === false && this.showPaymentInput === true) {
-      console.log('showAttachMenu && showPaymentInput still active?');
       this.toggleMessageInput(true);
       this.togglePaymentInput(false);
     }
@@ -178,29 +149,66 @@ export class MessageDetailComponent implements OnInit {
     this.togglePaymentInput();
   }
 
+  /*  Internal Methods
+  */
   toggleMessageInput(state?:boolean) : void {
     let _state = (state) ? state : !this.showMessageInput;
-    console.log(`setting showMessageInput to: ${_state}`);
     this.showMessageInput = _state;
   }
 
   togglePaymentInput(state?:boolean) : void {
     let _state = (state) ? state : !this.showPaymentInput;
-    console.log(`setting showPaymentInput to: ${_state}`);
     this.showPaymentInput = _state;
   }
 
   toggleAttachMenu(state?:boolean) : void {
     let _state = (state) ? state : !this.showAttachMenu;
-    console.log(`setting showAttachMenu to: ${_state}`);
     this.showAttachMenu = _state;
   }
 
-  getContactDetails(contactId) : void {
-    this.messengerService.fetchContact$(contactId)
+  sendPaymentMessage() : void {
+    if (isNaN(this.odnAmount)) {
+      this.inputHasWarning = true;
+      return console.warn('Invalid payment attachment');
+    }
+
+    this.odnAmount = Number(this.odnAmount);
+    this.walletService.sendTransaction(this.contactId, this.odnAmount)
+    .takeUntil(this.unsubscribe)
+    .subscribe(response => {
+      console.info('sendTransaction response', response);
+
+      if (response) {
+        this.messengerService.sendMessage$(this.contactId, `${this.odnAmount} ODN has been sent`, { type: 'payment-out', amount: this.odnAmount })
+        .subscribe(message => {
+          this.onAttach();
+          this.odnAmount = 0;
+        });
+      }
+    });
+  }
+
+  sendTextMessage() : void {
+    if (!this.newMessage ||
+        this.newMessage.replace(/\s/g, '') === '') {
+      this.inputHasWarning = true;
+      return console.warn('Invalid message');
+    }
+
+    this.messengerService.sendMessage$(this.contactId, this.newMessage)
+    .subscribe(message => {
+      console.info('Contact Messages', message);
+
+      this.newMessage = '';
+      this.mockResponse.triggerMock(message);
+    });
+  }
+
+  getContactDetails() : void {
+    this.messengerService.fetchContact$(this.contactId)
     .subscribe(contact => {
       if (!contact) {
-        console.error(`could not load conact ${contactId}`);
+        console.error(`Error loading contact ${this.contactId}`);
         return this.router.navigate(['/messenger']);
       }
 
@@ -210,24 +218,12 @@ export class MessageDetailComponent implements OnInit {
         actions: [
           { label: 'Edit Contact', link:`messenger/edit/${this.contact.id}` }
         ]
-      })
+      });
     }, err => {
-      console.warn('Error occurred');
-      console.warn(err);
+      console.warn(`Error loading contact ${this.contactId}`, err);
       this.router.navigate(['/messenger']);
     }, () => {
-      console.log('completed?');
+      console.info('Contact Loaded');
     });
-  }
-
-  getMessages(contactId): void {
-    console.warn('--- SKIP GET MESSAGES --');
-    return;
-
-    // this.messengerService.fetchContactMessages$(contactId)
-    // .subscribe(messages => {
-    //   console.log('GOT MESSAGES', messages);
-    //   this.messages = messages;
-    // });
   }
 }

@@ -1,82 +1,45 @@
 import { Injectable }     from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
-// import {Observable} from 'rxjs/Observable';
-
 // Import RxJs required methods
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
-import { of }       from 'rxjs/observable/of';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { of } from 'rxjs/observable/of';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/defer';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/multicast';
-// import {ConnectableObservable} from 'rxjs/ConnectableObservable';
 
+import { uuid } from '../app-helpers/uuid';
+
+/* Models */
 import { Message }  from './message';
 import { Contact }  from './contact';
 
-import { uuid } from './uuid';
-
-import { MockContacts } from './mock/contacts';
-import { MockMessages } from './mock/messages';
-
-// import { MockResponseService } from '../app-helpers/mock-response.service';
-
-/* TODO
-- Convert to localized DB vs API
-- Convert conversations into streams to be subscribed to
-*/
+/* Mock Data */
+import { MockContacts } from './mock/contacts.mock';
+import { MockMessages } from './mock/messages.mock';
 
 @Injectable()
 export class MessengerService {
 
-  // TODO remove
-  private contactsUrl = 'http://localhost:3000/api/fetch-users';
-  private messagesUrl = 'http://localhost:3000/api/fetch-user';
-
-  // first, get contacts from the local storage or initial localContacts array
+  /*
+    Grab Contacts and Messages from local storage
+    - if not available, use Mock Data as baseline
+  */
   public localContacts: Contact[] = JSON.parse(localStorage.getItem('contacts')) || MockContacts;
 
   public localMessages: Message[] = JSON.parse(localStorage.getItem('messages')) || MockMessages;
 
   messageStreamSource = new BehaviorSubject<any>([]);
   messageStream = this.messageStreamSource.asObservable();
-  // messageStream : Observable<any> = null;
-
-  // sample : Observable<any> = <any>[];
-
-  source = null;
 
   constructor(private http: Http) {
     this.messageStreamSource.publish().connect();
     this.messageStreamSource.next(this.localMessages);
-
-    this.source = Observable.defer(() => {
-      Observable.of(Math.floor(Math.random() * 100));
-    })
-
-    // setTimeout(()=>{
-    //   console.log('interval timer');
-    //   let _items = this.messageStreamSource.value;
-    //
-    //   _items.push({
-    //     senderId: "f1fb7b52-b3d1-486a-9fd2-5a1fc242ee8f",
-    //     contactId: "f1fb7b52-b3d1-486a-9fd2-5a1fc242ee8f",
-    //     body: 'SAMPLE STREAM',
-    //     time: (new Date()).getTime()
-    //   });
-    //
-    //   console.log(_items);
-    //
-    //   this.messageStreamSource.next(_items);
-    //   // _items.push(Math.random())
-    //
-    // }, 3000);
   }
 
   observe(name:string) {
@@ -86,21 +49,17 @@ export class MessengerService {
     }
   }
 
-  // sampleStream() : ConnectableObservable
-
   /*
     Create new contact
     @Return Created Contact
   */
   createContact$(contact : Contact) : Observable<Contact> {
-    console.info('createContact$', {
+    console.info('[MessengerService] createContact$', {
       contact: contact
     });
 
     return new Observable(observer => {
       setTimeout(() => {
-        console.log('createContact$ ... ');
-
         let newContact = Object.assign(contact, { id: uuid.generate() });
         this.localContacts[this.localContacts.length] = newContact;
 
@@ -116,12 +75,11 @@ export class MessengerService {
     @Return local contacts
   */
   fetchContacts$() : Observable<Contact[]> {
-    console.info('fetchContacts$');
+    console.info('[MessengerService] fetchContacts$');
 
     return new Observable(observer => {
       setTimeout(() => {
-        console.log('fetchContacts$ ... ');
-        console.log(this.localContacts);
+        console.log('[MessengerService] fetchContacts$ ... ', this.localContacts);
 
         observer.next(this.localContacts);
         observer.complete();
@@ -133,14 +91,13 @@ export class MessengerService {
     @Return specified local contact
   */
   fetchContact$(contactId : string) : Observable<any> {
-    console.info('fetchContact$', {
+    console.info('[MessengerService] fetchContact$', {
       contactId: contactId
     });
 
     return new Observable(observer => {
       setTimeout(() => {
-        console.log('fetchContact$ ... ');
-        console.log(this.localContacts);
+        console.log('[MessengerService] fetchContact$ ... ', this.localContacts);
 
         let contact : Contact = null;
         this.localContacts.some((element : Contact, index : number) => {
@@ -150,12 +107,8 @@ export class MessengerService {
           }
         });
 
-        if (contact) {
-          observer.next(contact);
-        }
-        else {
-          observer.next(false);
-        }
+        if (contact) observer.next(contact);
+        else observer.next(false);
 
         observer.complete();
       }, 500);
@@ -166,14 +119,13 @@ export class MessengerService {
     @Return specified local contact
   */
   fetchContactMessages$(contactId : string) : Observable<any> {
-    console.info('fetchContactMessages$', {
+    console.info('[MessengerService] fetchContactMessages$', {
       contactId: contactId
     });
 
     return new Observable(observer => {
       setTimeout(() => {
-        console.log('fetchContactMessages$ ... ');
-        console.log(this.localContacts);
+        console.log('[MessengerService] fetchContactMessages$ ... ', this.localContacts);
 
         let contact : Contact = null;
         let messages : Message[] = null;
@@ -189,14 +141,8 @@ export class MessengerService {
           return element.contactId === contactId
         });
 
-        if (contact && messages) {
-          console.log('returning messages');
-          observer.next(messages);
-        }
-        else {
-          console.warn('contact or messages dont exist')
-          observer.next(false);
-        }
+        if (contact && messages) observer.next(messages);
+        else observer.next(false);
 
         observer.complete();
       }, 500);
@@ -207,14 +153,12 @@ export class MessengerService {
     @Return updated contact object
   */
   saveContact$(contact : Contact) : Observable<any> {
-    console.info('saveContact$', {
+    console.info('[MessengerService] saveContact$', {
       contact: contact
     });
 
     return new Observable(observer => {
       setTimeout(() => {
-        console.log('saveContact$ ... ');
-
         let contactUpdated:boolean = false;
         this.localContacts.some((element : Contact, index : number) => {
           if (element.id === contact.id) {
@@ -229,10 +173,7 @@ export class MessengerService {
           console.log('contact upated');
           observer.next(contact);
         }
-        else {
-          console.warn('contact not found');
-          observer.next(false);
-        }
+        else observer.next(false);
 
         observer.complete();
       }, 500);
@@ -243,23 +184,21 @@ export class MessengerService {
     @Return updated contact object
   */
   deleteContact$(contact : Contact) : Observable<any> {
-    console.info('deleteContact$', {
+    console.info('[MessengerService] deleteContact$', {
       contact: contact
     });
 
     return new Observable(observer => {
       setTimeout(() => {
-        console.log('deleteContact$ ... ');
-
         let sizeBeforeDelete = this.localContacts.length;
         this.localContacts = this.localContacts.filter((element: Contact) => element.id !== contact.id);
 
         if (sizeBeforeDelete === this.localContacts.length) {
-          console.warn('contact not found');
+          console.warn('[MessengerService] Contact not found');
           observer.next(false);
         }
         else {
-          console.log('contact found');
+          console.log('[MessengerService] Contact found and removed');
           observer.next(true);
         }
 
@@ -269,7 +208,7 @@ export class MessengerService {
   }
 
   sendMessage$(contactId:string, message:string, attachment?:any) : Observable<Message> {
-    console.info('sendMessage$', {
+    console.info('[MessengerService] sendMessage$', {
       contactId: contactId,
       message: message,
       attachment: attachment
@@ -277,8 +216,6 @@ export class MessengerService {
 
     return new Observable(observer => {
       setTimeout(() => {
-        console.log('sendMessage$ ... ');
-
         let newMessage : Message = {
           contactId: contactId,
           body: message,
@@ -292,51 +229,23 @@ export class MessengerService {
         this.messageStreamSource.next(this.localMessages);
         observer.next(newMessage);
         observer.complete();
-        // this.mockResponse.triggerMock(newMessage);
       }, 500);
     });
   }
 
   receiveMessage$(message : Message) : Observable<Message> {
-    console.info('receiveMessage$', {
+    console.info('[MessengerService] receiveMessage$', {
       message: message
     });
 
     return new Observable(observer => {
       setTimeout(() => {
-        console.log('receiveMessage$ ... ');
-
         this.localMessages.push(message);
         localStorage.setItem('messages', JSON.stringify(this.localMessages));
         this.messageStreamSource.next(this.localMessages);
         observer.next(message);
         observer.complete();
-        // this.mockResponse.triggerMock(newMessage);
       }, 500);
     });
   }
-
-  private parseData(res : Response) {
-    let data = res.json() || [];
-    if (data === undefined || data['status'] != 'ok')
-      throw 'Bad Status!';
-
-    return data;
-  }
-
-  private handleError(error : Response | any) {
-    let errorMessage: string;
-    errorMessage = error.message ? error.message : error.toString();
-    console.log(errorMessage);
-    return Observable.throw(errorMessage);
-  }
 }
-
-// .map(this.parseData)
-// .map((res: Response) => res['users'])
-// .catch((error: any) => Observable.throw(error));
-// .catch((error: any) => {
-//   console.log(error);
-//   Observable.throw("Error in x service")
-// });
-// .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

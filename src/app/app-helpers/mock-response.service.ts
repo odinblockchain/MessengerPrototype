@@ -9,8 +9,9 @@ export class MockResponseService {
     private messengerService: MessengerService
   ) { }
 
-  triggerMock(message) : void {
-    // Send mock response randomly (between 0 - 10s)
+  // Send mock response randomly (between 0 - 10s)
+  triggerMock = (message) : void => {
+
     setTimeout(() => {
       console.info('[MOCK] triggerMock', message);
       let mockMessage = {
@@ -23,7 +24,7 @@ export class MockResponseService {
 
       this.messengerService.receiveMessage$(mockMessage)
       .subscribe(message => {
-        console.log('[MOCK] delivered mockMessage', message);
+        console.info('[MOCK] delivered mockMessage', message);
       });
     }, Math.floor(Math.random() * 10) * 1000)
   }

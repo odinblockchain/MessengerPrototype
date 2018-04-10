@@ -93,7 +93,7 @@ app-root,
     // -webkit-box-flex: 1;
     flex: 1;
     min-height: 1px;
-    margin-left: calc(-#{$flex-scroll-offset} + 2px);
+    // margin-left: calc(-#{$flex-scroll-offset} + 2px);
   }
 }
 
@@ -829,6 +829,21 @@ button.submit {
       content: "\E05A";
       position: absolute;
       right: 15px;
+    }
+  }
+}
+
+.form-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2rem;
+
+  button.app-btn,
+  button.submit {
+    width: 100%;
+
+    .copy {
+      width: 100%;
     }
   }
 }

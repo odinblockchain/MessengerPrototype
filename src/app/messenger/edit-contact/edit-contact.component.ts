@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Message }          from '../message';
-import { Contact }          from '../contact';
+/* Models */
+import { Message }          from '../Message';
+import { Contact }          from '../Contact';
+
+/* Services */
 import { MessengerService } from '../messenger.service';
 import { AppHeaderService } from '../../app-header.service';
 import { AppModalService }  from '../../app-modal.service';
@@ -16,80 +20,75 @@ export class EditContactComponent implements OnInit {
   contactId: string;
   contact: Contact;
   shouldConfirmDelete: boolean;
+  contactForm : FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private messengerService: MessengerService,
     private appHeader: AppHeaderService,
-    private appModal: AppModalService
+    private appModal: AppModalService,
+    private fb: FormBuilder
   ) {
     this.appHeader.setAppHeader({
       title: 'Edit Contact',
       showBackAction: true
     })
+
+    this.contactForm = fb.group({
+      'name': ['', Validators.required],
+      'id': [{value: '', disabled: true }, Validators.required]
+    })
   }
 
   ngOnInit() {
-    let id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     this.contactId = id;
-    this.getContactDetails(this.contactId);
+    this.getContactDetails();
   }
 
   onSave(contact : Contact) : void {
-    console.log('save it...', contact);
     this.messengerService.saveContact$(contact)
     .subscribe(contact => {
-      console.log('GOT CONTACT', contact);
-
-      this.contact = contact;
+      console.info('Saved Contact Details');
       this.router.navigate(['messenger/view', this.contactId]);
     }, err => {
-      console.warn('ERR occurred');
-      console.warn(err);
+      console.warn('Unable to save contact details', err);
     });
   }
 
   onDelete(contact : Contact) : void {
-    console.info('confirm delete...');
+    console.info('Confirming delete action...');
 
     this.appModal.showConfirmModal({title: 'Delete this contact?', body: `${contact.name} will be removed from your contact list and all associated messages will be wiped.`})
     .subscribe(response => {
-      console.log('confirmModal Response:', response);
-
       if (response) {
         this.messengerService.deleteContact$(contact)
         .subscribe(res => {
-          console.log('GOT death', res);
-        
-          this.contact = null;
+          console.info('Removed Contact');
           this.router.navigate(['messenger']);
         }, err => {
-          console.warn('ERR occurred');
-          console.warn(err);
+          console.warn('Unable to delete contact details', err);
         });
-      }
-      else {
-        console.info('cancelled');
       }
     });
   }
 
-  getContactDetails(contactId) : void {
-    this.messengerService.fetchContact$(contactId)
+  getContactDetails() : void {
+    this.messengerService.fetchContact$(this.contactId)
     .subscribe(contact => {
       if (!contact) {
-        console.error(`could not load contact ${contactId}`);
+        console.error(`Unable to load contact ${this.contactId}`);
         return this.router.navigate(['messenger']);
       }
 
       this.contact = contact;
     }, err => {
-      console.warn('Error occurred');
-      console.warn(err);
+      console.warn('Error occurred loading contact', err);
       this.router.navigate(['messenger']);
     }, () => {
-      console.log('completed?');
+      this.contactForm.controls['name'].setValue(this.contact.name);
+      this.contactForm.controls['id'].setValue(this.contact.id);
     });
   }
 }

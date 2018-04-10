@@ -11,7 +11,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({name: 'avatarName'})
 export class AvatarNamePipe implements PipeTransform {
   transform(input: string): string {
-    if (input)
+    if (typeof input === 'string' && input.length > 0)
       return `${input.substr(0, 1)}`;
     else
       return '?';

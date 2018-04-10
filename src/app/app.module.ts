@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import 'hammerjs';
+import 'hammer-timejs';
+
 /* App Core */
 import { AppCoreModule } from './app-core/app-core.module';
 import { AppComponent } from './app.component';
@@ -22,6 +25,7 @@ import { HeaderDirective } from './header.directive';
 import { MessengerModule } from './messenger/messenger.module';
 import { WalletModule } from './wallet/wallet.module';
 import { FeedbackModule } from './feedback/feedback.module';
+
 
 @NgModule({
   declarations: [

@@ -19,7 +19,7 @@ import { MockWallet } from './mock/wallet';
 
 import { AppModalService } from '../app-modal.service';
 
-import { uuid } from './uuid';
+import { uuid } from '../app-helpers/uuid';
 
 @Injectable()
 export class WalletService {

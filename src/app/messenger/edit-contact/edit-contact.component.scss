@@ -6,17 +6,3 @@ app-edit-contact {
 .edit-contact {
   margin-top: 2rem;
 }
-
-.actions {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 2rem;
-
-  button.app-btn {
-    width: 100%;
-
-    .copy {
-      width: 100%;
-    }
-  }
-}

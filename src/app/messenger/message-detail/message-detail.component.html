@@ -1,72 +1,85 @@
-<div
-  class="message-input"
-  [class.attach-menu--open]="showAttachMenu === true">
+<ng-container *ngIf="contact && messages else loading">
+  <div class="message-input"
+       [class.attach-menu--open]="showAttachMenu === true"
+       [class.input-warning]="inputHasWarning === true">
 
-  <ng-container *ngIf="showMessageInput">
-    <input class="input" type="text" placeholder="Message" [(ngModel)]="newMessage" />
-  </ng-container>
-
-  <ng-container *ngIf="showPaymentInput">
-    <input class="input" type="text" placeholder="ODN Amount" [(ngModel)]="odnAmount" />
-  </ng-container>
-
-  <button
-    class="button action-icon attachment"
-    (click)="onAttach()">
-    <i class="icon-paper-clip"></i>
-  </button>
-
-  <button
-    class="button action-icon send"
-    (click)="onSend()">
-    <i class="icon-paper-plane"></i>
-  </button>
-
-  <div class="attach-menu">
-    <ul>
-      <li class="1 wallet"
-          (click)="onAttachPaymentClick()">
-        <i class="icon-wallet"></i>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<div
-  class="message-list"
-  *ngIf="contact && messages else loading">
-
-  <ng-container *ngIf="messages.length > 0">
-    <div class="list-container message"
-         *ngFor="let message of messages"
-         (click)="onSelect(message)"
-         [ngClass]="[(message.attachment?.type) ? 'type--' + message.attachment?.type : '' ]"
-         [class.active]="message === selectedMessage"
-         [class.local]="message.senderId !== message.contactId">
-
-      <div *ngIf="message.senderId === message.contactId; then thenBlock else elseBlock"></div>
-      <ng-template #thenBlock class="avatar bubble">
-        <div class="avatar bubble">{{contact?.name | avatarName | uppercase}}</div>
-      </ng-template>
-      <ng-template #elseBlock class="avatar bubble">
-        <div class="avatar bubble">{{ 'Me' | avatarName | uppercase}}</div>
-      </ng-template>
-
-      <div class="message list-item"
-           [ngClass]="[(message.senderId === message.contactId) ? 'arrow-left' : 'arrow-right']">
-        <p>{{message.body}}</p>
-        <p><strong>{{message.attachment?.type}}</strong></p>
-      </div>
-      <div class="metadata">{{message.time}}</div>
+    <div class="warning-icon">
+      <i class="icon-exclamation"></i>
     </div>
-  </ng-container>
 
-  <ng-container *ngIf="messages.length == 0">
-    <div class="view-loading"><i class="icon-ghost"></i> No Messages</div>
-  </ng-container>
+    <ng-container *ngIf="showMessageInput">
+      <input class="input" type="text" placeholder="Message" [(ngModel)]="newMessage" />
+    </ng-container>
 
-</div>
+    <ng-container *ngIf="showPaymentInput">
+      <input class="input" type="text" placeholder="ODN Amount" [(ngModel)]="odnAmount" />
+    </ng-container>
+
+    <button
+      class="button action-icon attachment"
+      (click)="onAttach()">
+      <i class="icon-paper-clip"></i>
+    </button>
+
+    <button
+      class="button action-icon send"
+      (click)="onSend()">
+      <i class="icon-paper-plane"></i>
+    </button>
+
+    <div class="attach-menu">
+      <ul>
+        <li class="1 wallet"
+            (click)="onAttachPaymentClick()">
+          <i class="icon-wallet"></i>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="wrap" class="list-message-wrap flex-scroll">
+    <div id="scroll" class="scroll-wrap">
+      <div class="scroller">
+        <div
+          #list
+          id="list"
+          class="message-list"
+          [scrollTop]="list.scrollHeight">
+
+          <ng-container *ngIf="messages.length > 0">
+            <div class="list-container message"
+                 *ngFor="let message of messages"
+                 (click)="onSelect(message)"
+                 [ngClass]="[(message.attachment?.type) ? 'type--' + message.attachment?.type : '' ]"
+                 [class.active]="message === selectedMessage"
+                 [class.local]="message.senderId !== message.contactId">
+
+              <div *ngIf="message.senderId === message.contactId; then thenBlock else elseBlock"></div>
+              <ng-template #thenBlock class="avatar bubble">
+                <div class="avatar bubble">{{contact?.name | avatarName | uppercase}}</div>
+              </ng-template>
+              <ng-template #elseBlock class="avatar bubble">
+                <div class="avatar bubble">{{ 'Me' | avatarName | uppercase}}</div>
+              </ng-template>
+
+              <div class="message list-item"
+                   [ngClass]="[(message.senderId === message.contactId) ? 'arrow-left' : 'arrow-right']">
+                <p>{{message.body}}</p>
+                <p><strong>{{message.attachment?.type}}</strong></p>
+              </div>
+              <div class="metadata">{{message.time}}</div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="messages.length == 0">
+            <div class="view-loading"><i class="icon-ghost"></i> No Messages</div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
 
 <ng-template #loading>
-  <div class="view-loading">Loading Messages...</div>
+  <app-loading></app-loading>
 </ng-template>

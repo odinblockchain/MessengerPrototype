@@ -1,6 +1,6 @@
-import { uuid } from '../uuid';
-import { Message } from '../message';
-import { MockContacts } from './contacts';
+import { uuid } from '../../app-helpers/uuid';
+import { Message } from '../Message';
+import { MockContacts } from './contacts.mock';
 
 const Messages = [
   'New phone, who dis?',

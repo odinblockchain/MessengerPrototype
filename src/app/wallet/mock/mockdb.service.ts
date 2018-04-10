@@ -2,7 +2,7 @@ import {Http, BaseRequestOptions, Response, ResponseOptions,
         RequestMethod, XHRBackend, RequestOptions} from '@angular/http';
 import {MockBackend, MockConnection} from '@angular/http/testing';
 
-import { uuid } from '../uuid';
+import { uuid } from '../../app-helpers/uuid';
 
 import { Address } from '../Address';
 import { Transaction } from '../Transaction';

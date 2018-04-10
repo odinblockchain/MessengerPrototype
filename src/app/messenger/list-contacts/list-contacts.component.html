@@ -1,35 +1,26 @@
-<div class=""
-     *ngIf="contacts else loading">
-
+<ng-container *ngIf="contacts else loading">
   <div class="list-container"
        *ngFor="let contact of contacts"
        [class.active]="contact === selectedContact">
+
     <div class="avatar bubble"
          (click)="onSelect(contact)">
-      <div class="front">
-        {{contact.name | avatarName | uppercase}}
-      </div>
-      <div class="back">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="ico-svg--check">
-          <path d="M0 11.522l1.578-1.626 7.734 4.619 13.335-12.526 1.353 1.354-14 18.646z"/>
-        </svg>
-      </div>
+      <div class="front">{{contact.name | avatarName | uppercase}}</div>
+      <div class="back"><i class="icon-fire"></i></div>
     </div>
     <a class="username list-item" [routerLink]="['./view', contact.id]">
       <span>{{contact.name}}</span>
     </a>
-    <div class="metadata">4:21 pm</div>
+    <div class="metadata">x:xx pm</div>
   </div>
 
-</div>
-
-<div class="new-contact">
-  <a class="u-shadow-200" [routerLink]="['./new']">
-    <i class="icon-user-follow"></i>
-  </a>
-</div>
+  <div class="new-contact">
+    <a class="u-shadow-200" [routerLink]="['./new']">
+      <i class="icon-user-follow"></i>
+    </a>
+  </div>
+</ng-container>
 
 <ng-template #loading>
-  <div class="view-loading">Loading...</div>
-  <!-- <app-loading></app-loading> -->
+  <app-loading></app-loading>
 </ng-template>

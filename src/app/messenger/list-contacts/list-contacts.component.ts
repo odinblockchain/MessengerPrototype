@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+/* Models */
 import { Contact }          from '../contact';
+
+/* Services */
 import { MessengerService } from '../messenger.service';
 import { AppHeaderService } from '../../app-header.service';
 
@@ -36,10 +39,8 @@ export class ListContactsComponent implements OnInit {
   }
 
   getContacts() : void {
-    console.log('...getContacts');
     this.messengerService.fetchContacts$()
     .subscribe(contacts => {
-      console.log('GOT CONTACTS', contacts);
       this.contacts = contacts;
     });
   }
