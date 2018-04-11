@@ -1,3 +1,4 @@
+/* Models */
 import { Address } from './Address';
 import { Transaction } from './Transaction';
 

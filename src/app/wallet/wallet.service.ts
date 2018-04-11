@@ -11,14 +11,13 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/publish';
 
+/* Models */
 import { Address }  from './Address';
 import { Transaction }  from './Transaction';
 import { Wallet }  from './Wallet';
 
-import { MockWallet } from './mock/wallet';
-
 import { AppModalService } from '../app-modal.service';
-
+import { MockWallet } from './mock/wallet.mock';
 import { uuid } from '../app-helpers/uuid';
 
 @Injectable()
@@ -28,55 +27,14 @@ export class WalletService {
 
   private unsubscribe: Subject<void> = new Subject();
 
-  constructor(private http: Http, private appModal: AppModalService) {
-    // const obsv = new Observable(observer => {
-    //
-    //   setTimeout(() => {
-    //     observer.next(1);
-    //   }, 1000);
-    //
-    //   setTimeout(() => {
-    //     observer.next(2);
-    //   }, 2000);
-    //
-    //   setTimeout(() => {
-    //     observer.next(3);
-    //   }, 3000);
-    //
-    //   setTimeout(() => {
-    //     observer.next(4);
-    //   }, 4000);
-    //
-    // }).publish();
-    //
-    // obsv.connect();
-    //
-    // // Subscription A
-    // setTimeout(() => {
-    //   obsv.subscribe(value => console.log(value));
-    // }, 0);
-    //
-    // // Subscription B
-    // setTimeout(() => {
-    //   obsv.subscribe(value => console.log(`      ${value}`));
-    // }, 2500);
-
-    // // Subscription A
-    // setTimeout(() => {
-    //   obsv.subscribe(value => console.log(value));
-    // }, 0);
-    //
-    // // Subscription B
-    // setTimeout(() => {
-    //   obsv.subscribe(value => console.log(`>>>> ${value}`));
-    // }, 2500);
-  }
+  constructor(
+    private http: Http,
+    private appModal: AppModalService) { }
 
   fetchWallet() : Observable<Wallet> {
     return new Observable(observer => {
       setTimeout(() => {
-        console.log('fetchWallet ... ');
-        console.log(this.localWallet);
+        console.info('[WalletService] fetchWallet', this.localWallet);
 
         observer.next(this.localWallet);
         observer.complete();
@@ -85,6 +43,8 @@ export class WalletService {
   }
 
   sendTransaction(sendTo:string, amount:number) : Observable<boolean> {
+    console.info('[WalletService] sendTransaction', { sendTo: sendTo, amount: amount});
+
     return new Observable(observer => {
       this.appModal.showConfirmModal({title: 'Confirm this transaction', body: `You are sending ${amount} ODN, are you sure?`})
       .takeUntil(this.unsubscribe)
@@ -96,32 +56,18 @@ export class WalletService {
           let primaryAddress = this.localWallet.addresses[this.localWallet.primaryAddress];
 
           if (primaryAddress.balance <= amount) {
-            console.warn('balance insufficient!');
+            console.warn('[WalletService] Balance insufficient for transaction');
 
-            console.log('sending showNoticeModal action');
             this.appModal.showNoticeModal({title: 'Balance Insufficient', body: `The transaction for ${amount} ODN was rejected because your primary address balance is ${primaryAddress.balance} ODN.`})
             .publish().connect();
-
-            // setTimeout(() => {
-            //   console.log('sending showNoticeModal action');
-            //   this.appModal.showNoticeModal({title: 'Balance Insufficient', body: `The transaction for ${amount} ODN was rejected because your primary address balance is ${primaryAddress.balance} ODN.`})
-            //   .publish().connect();
-            //   // .takeUntil(this.unsubscribe)
-            //   // .subscribe(response => {
-            //   //   console.log(response);
-            //   // });
-            // }, 2000);
-
             observer.next(false);
           }
           else {
-            console.log(`sending ${amount} to ${sendTo}`);
-            console.log(`current balance: ${primaryAddress.balance}`);
+            console.log(`[WalletService] Sending ${amount} to ${sendTo}. Pre-balance: ${primaryAddress.balance}`);
 
             primaryAddress.balance -= amount;
 
-            console.log(`after balance: ${primaryAddress.balance}`);
-            console.log('Addresses', this.localWallet);
+            console.log(`[WalletService] Post-balance: ${primaryAddress.balance}`);
 
             this.localWallet.transactions.push(this.buildTransaction(sendTo, amount));
 
@@ -130,7 +76,7 @@ export class WalletService {
           }
         }
         else {
-          console.log(`send rejected`);
+          console.info('[WalletService] Transaction cancelled');
           observer.next(false);
         }
         observer.complete();

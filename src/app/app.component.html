@@ -46,7 +46,7 @@
       </ng-container>
 
       <!-- PR⍉JℇC₸ RɅᐯ3N-->
-      <h1 class="brand">{{title}}</h1>
+      <h1 class="title">{{title}}</h1>
 
       <ng-container *ngIf="actionMenu.length > 0">
         <div class="action-btn"
@@ -77,37 +77,37 @@
     <router-outlet></router-outlet>
   </div>
 
-  <ng-container *ngIf="appReady">
-  <div class="modal-box" (click)="modalClick" [attr.data-type]="modalConfig?.type">
-  <div class="modal-inner u-shadow-400">
-    <div class="app-container">
-      <header>
-        <h3>{{modalConfig?.title}}</h3>
-        <p></p>
-      </header>
-      <section [ngSwitch]="modalConfig?.type">
-        <p>{{modalConfig?.body}}</p>
+<ng-container *ngIf="appReady">
+  <div class="modal-box" (click)="modalClick"  [attr.data-type]="modalConfig?.type">
+    <div class="modal-inner u-shadow-400">
+      <div class="app-container">
+        <header>
+          <h3>{{modalConfig?.title}}</h3>
+          <p></p>
+        </header>
+        <section [ngSwitch]="modalConfig?.type">
+          <p>{{modalConfig?.body}}</p>
 
-        <div *ngSwitchCase="'confirm'">
-          <button (click)="modalConfirm(true)">Yes</button>
-          <button (click)="modalConfirm(false)">No</button>
-        </div>
-        <div *ngSwitchCase="'notice'">
-          <button (click)="modalConfirm(true)">Ok</button>
-        </div>
-        <div *ngSwitchDefault>
-          <!-- Missing -->
-        </div>
-      </section>
+          <div *ngSwitchCase="'confirm'">
+            <button (click)="modalConfirm(true)">Yes</button>
+            <button (click)="modalConfirm(false)">No</button>
+          </div>
+          <div *ngSwitchCase="'notice'">
+            <button (click)="modalConfirm(true)">Ok</button>
+          </div>
+          <div *ngSwitchDefault>
+            <!-- Missing -->
+          </div>
+        </section>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="app-notification {{notificationConfig?.type}}">
-  <div class="notification">
-    <p>{{notificationConfig?.body}}</p>
+  <div class="app-notification {{notificationConfig?.type}}">
+    <div class="notification">
+      <p>{{notificationConfig?.body}}</p>
+    </div>
   </div>
-</div>
 </ng-container>
 
   <!-- Blocker -->

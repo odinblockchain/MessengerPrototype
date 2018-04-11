@@ -43,7 +43,7 @@
           <div class="validation validation-error" *ngIf="feedbackForm.controls['body'].hasError('required') && feedbackForm.controls['body'].touched">You must include some feedback!</div>
         </div>
 
-        <button type="submit" class="submit" [disabled]="!feedbackForm.valid">
+        <button type="submit" class="app-btn btn-inverse btn-brand" [disabled]="!feedbackForm.valid">
           <span class="copy">Submit Feedback</span>
         </button>
       </form>

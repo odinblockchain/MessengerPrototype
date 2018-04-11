@@ -1,15 +1,12 @@
-// Imports
-// Deprecated import
-// import { provideRouter, RouterConfig } from '@angular/router';
 import { NgModule }             from '@angular/core';
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+/* Components */
 import { WalletComponent } from './wallet.component';
 import { WalletHomeComponent } from './wallet-home/wallet-home.component';
 import { ViewAddressesComponent } from './view-addresses/view-addresses.component';
 import { ViewTransactionsComponent } from './view-transactions/view-transactions.component';
-
 
 // Route Configuration
 const walletRoutes: Routes = [
@@ -31,18 +28,7 @@ const walletRoutes: Routes = [
       }
     ]
   }
-  // { path: '', component: MessengerComponent },
-  // { path: 'message/:id', component: MessageDetailComponent },
-  // { path: 'new-contact', component: NewContactComponent },
-  // { path: 'edit/:id', component: EditContactComponent },
 ];
-
-// Deprecated provide
-// export const APP_ROUTER_PROVIDERS = [
-//   provideRouter(routes)
-// ];
-
-// export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
 
 @NgModule({
   imports: [

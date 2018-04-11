@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+/* Models */
 import { Address } from '../Address';
 import { Wallet } from '../Wallet';
+
+/* Services */
 import { WalletService } from '../wallet.service';
 import { AppHeaderService } from '../../app-header.service';
 
@@ -15,8 +18,10 @@ export class ViewAddressesComponent implements OnInit {
   wallet: Wallet;
   addresses: Address[];
 
-  constructor(private walletService: WalletService,
-  private appHeader: AppHeaderService) {
+  constructor(
+    private walletService: WalletService,
+    private appHeader: AppHeaderService)
+  {
     this.appHeader.setAppHeader({
       title: 'Wallet Addresses',
       showBackAction: true
@@ -24,13 +29,12 @@ export class ViewAddressesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getWallet();
+    this.loadWallet();
   }
 
-  getWallet() : void {
+  private loadWallet() : void {
     this.walletService.fetchWallet()
     .subscribe(wallet => {
-      console.log('GOT WALLET', wallet);
       this.wallet = wallet;
       this.addresses = wallet.addresses;
     });

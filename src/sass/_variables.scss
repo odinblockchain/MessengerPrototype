@@ -30,9 +30,10 @@ $appModalBg: $gray;
 
 // $appHeaderColor: indigo;
 // $appHeaderColor: $brandColor;
-$appHeaderBg: $brandColor;
+// $appHeaderBg: $brandColor;
 // $appHeaderBg: $blueDarker;
-$appHeaderTextColor: #333333;
+$appHeaderBg: $gray;
+$appHeaderTextColor: $appTypographyColor;
 
 $breakpoints: (
   'small'  : 767px,

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+/* Models */
 import { Address } from '../Address';
 import { Wallet } from '../Wallet';
+
+/* Services */
 import { WalletService } from '../wallet.service';
 import { AppHeaderService } from '../../app-header.service';
 
@@ -13,23 +16,17 @@ import { AppHeaderService } from '../../app-header.service';
 export class WalletHomeComponent implements OnInit {
   wallet: Wallet;
 
-  constructor(private walletService: WalletService,
-  private appHeader: AppHeaderService) {
+  constructor(
+    private walletService: WalletService,
+    private appHeader: AppHeaderService)
+  {
     this.appHeader.setAppHeader({
       title: 'Wallet Detail'
     })
   }
 
   ngOnInit() {
-    this.getWallet();
-  }
-
-  getWallet() : void {
-    this.walletService.fetchWallet()
-    .subscribe(wallet => {
-      console.log('GOT WALLET', wallet);
-      this.wallet = wallet;
-    });
+    this.loadWallet();
   }
 
   public walletBalance() : number {
@@ -39,4 +36,13 @@ export class WalletHomeComponent implements OnInit {
     });
     return balance;
   }
+
+  private loadWallet() : void {
+    this.walletService.fetchWallet()
+    .subscribe(wallet => {
+      this.wallet = wallet;
+    });
+  }
+
+
 }

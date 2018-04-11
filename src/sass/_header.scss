@@ -9,11 +9,11 @@
   grid-gap: 10px;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 2px 0 rgba(0,0,0,.2), 0 2px 0 rgba(0,0,0,.06);
 
-  .brand {
+  .title {
     font-size: 1.5rem;
     display: inline;
-    color: $appHeaderTextColor;
     margin: 0;
     padding: 0;
 
@@ -22,8 +22,12 @@
     white-space: nowrap;
   }
 
+  .brand {
+    color: $brandColor;
+  }
+
   i[class*="icon-"] {
-    color: #333333;
+    color: $appHeaderTextColor;
   }
 
   .action-menu {
@@ -107,7 +111,7 @@
 }
 
 .line-menu {
-  background-color: #ffffff;
+  background-color: $appHeaderTextColor;
   border-radius: 5px;
   width: 100%;
   height: 3px;

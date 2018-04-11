@@ -18,8 +18,8 @@
         <dt class="balance">{{address.balance}}</dt>
         <dd class="label">{{address.label}}</dd>
       </dl>
-      <button class="app-btn btn-brand btn-push-right"
-              [routerLink]="['./addresses']">
+      
+      <button type="button" class="app-btn btn-inverse btn-brand btn-push-right" [routerLink]="['./addresses']">
         <span class="copy">View Addresses</span>
       </button>
     </div>
@@ -30,8 +30,8 @@
         <dt class="balance">{{transaction.amount}}</dt>
         <dd class="label">{{transaction.txid}}</dd>
       </dl>
-      <button class="app-btn btn-brand btn-push-right"
-              [routerLink]="['./transactions']">
+
+      <button type="button" class="app-btn btn-inverse btn-brand btn-push-right" [routerLink]="['./transactions']">
         <span class="copy">View Transactions</span>
       </button>
     </div>
@@ -40,5 +40,5 @@
 </ng-container>
 
 <ng-template #loading>
-  <div class="view-loading">Loading...</div>
+  <app-loading></app-loading>
 </ng-template>
