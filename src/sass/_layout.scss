@@ -1,0 +1,108 @@
+app-root,
+.app-root {
+  display: block;
+
+  font-size: 1em;
+  /* equivalent to 16px */
+  line-height: 1.25;
+  /* equivalent to 20px */
+  height: 100vh;
+  overflow: hidden;
+  position: absolute;
+  width: 100vw;
+}
+
+.app-view {
+  display: grid;
+  grid-template-rows: $header-width 0 calc(100vh - #{$header-width});
+  height: 100vh;
+  position: relative;
+  z-index: 10;
+  background-color: $appViewBg;
+}
+
+.app-container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 100%;
+}
+
+.app-nav-wrapper {
+  // background-image: linear-gradient(110deg, #225a78, #0f2734);
+  background-color: $appNavBg;
+  box-shadow: 0 0 5px 1px #000000;
+
+  position: absolute;
+  z-index: 1010;
+
+  height: 100vh;
+  width: $app-nav-width;
+
+  transform: translate3d(-110%, 0, 0);
+  transition: transform 650ms cubic-bezier(0.23, 1, 0.32, 1);
+
+  .scroll-wrap {
+    width: calc(#{$app-nav-width} + #{$flex-scroll-offset});
+  }
+
+  .app-nav {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 10px 0;
+    user-select: none;
+
+    display: grid;
+    grid-template-rows: 50px 0;
+    grid-auto-rows: 50px;
+    grid-gap: 10px;
+    grid-template-columns: 1fr;
+
+    &:after {
+      content: '';
+      width: 50px;
+      height: 20px;
+      margin: 0 auto;
+      background-color: transparent;
+    }
+
+    .bubble {
+      margin: 0 auto;
+      grid-row: 1 / -1;
+
+      &:after,
+      &::after {
+        content: '';
+        width: 100%;
+        border-bottom: 2px solid #ffffff;
+        height: 5px;
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+      }
+    }
+
+    .app {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+.app-inner {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+
+  .blocker {
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 300ms linear;
+  }
+}

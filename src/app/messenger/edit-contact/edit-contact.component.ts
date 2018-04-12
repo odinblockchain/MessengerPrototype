@@ -8,8 +8,8 @@ import { Contact }          from '../Contact';
 
 /* Services */
 import { MessengerService } from '../messenger.service';
-import { AppHeaderService } from '../../app-header.service';
-import { AppModalService }  from '../../app-modal.service';
+import { AppHeaderService } from '../../app-core/app-header.service';
+import { AppModalService }  from '../../app-core/app-modal.service';
 
 @Component({
   selector: 'app-edit-contact',

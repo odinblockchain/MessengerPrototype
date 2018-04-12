@@ -7,7 +7,7 @@ import { Contact } from '../contact';
 
 /* Services */
 import { MessengerService } from '../messenger.service';
-import { AppHeaderService } from '../../app-header.service';
+import { AppHeaderService } from '../../app-core/app-header.service';
 import { uuid } from '../../app-helpers/uuid';
 
 @Component({

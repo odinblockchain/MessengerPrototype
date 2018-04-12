@@ -22,7 +22,6 @@ export class AppHeaderService {
   constructor() {
     this.titleSource.next('Loading');
     this.actionMenuSource.next([]);
-
   }
 
   changeMessage(message: string) {
@@ -35,10 +34,7 @@ export class AppHeaderService {
     }
 
     if (headerOpts.hasOwnProperty('showBackAction')) {
-      console.log('showBackAction toggle', headerOpts['showBackAction']);
       this.showBackActionSource.next(headerOpts['showBackAction']);
-      // this.showBackActionSource.next(true);
-      // this.showMenuActionSource.next(false);
     }
 
     if (headerOpts.hasOwnProperty('showMenuAction')) {
@@ -47,7 +43,7 @@ export class AppHeaderService {
     }
 
     if (headerOpts.hasOwnProperty('actions')) {
-      console.log('set actions...', headerOpts);
+      console.info('[AppHeaderService] Actions', headerOpts);
       this.actionMenuSource.next(headerOpts['actions']);
     }
   }

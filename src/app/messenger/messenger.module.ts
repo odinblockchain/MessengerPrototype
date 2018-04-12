@@ -6,6 +6,7 @@ import { MockBackend } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
 
 /* App Core */
+import { AppCoreModule } from '../app-core/app-core.module';
 import { AppHelpersModule } from '../app-helpers/app-helpers.module';
 
 /* Routing */
@@ -21,6 +22,7 @@ import { ListContactsComponent } from './list-contacts/list-contacts.component';
 
 /* Services */
 import { MessengerService } from './messenger.service';
+import { MockResponseService } from './mock/mock-response.service';
 
 @NgModule({
   imports: [
@@ -29,6 +31,7 @@ import { MessengerService } from './messenger.service';
     ReactiveFormsModule,
     HttpModule,
     MessengerRoutingModule,
+    AppCoreModule,
     AppHelpersModule
   ],
   declarations: [
@@ -42,7 +45,8 @@ import { MessengerService } from './messenger.service';
   providers: [
     MessengerService,
     MockBackend,
-    BaseRequestOptions
+    BaseRequestOptions,
+    MockResponseService
   ]
 })
 export class MessengerModule {}

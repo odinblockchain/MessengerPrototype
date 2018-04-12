@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 import { Observable } from 'rxjs/Observable';
+
+/* Models */
 import { Modal } from './Modal';
 
 @Injectable()
@@ -26,7 +27,7 @@ export class AppModalService {
   showConfirmModal(options?:any) : Observable<boolean> {
     return new Observable(observer => {
       options = (options) ? options : {};
-      console.log('showConfirmModal', options);
+      console.info('[AppModalService] showConfirmModal', options);
 
       options.type = 'confirm';
       this.modalSource.next(options);
@@ -37,10 +38,9 @@ export class AppModalService {
   }
 
   showNoticeModal(options?:any) : Observable<boolean> {
-    console.log('...showNoticeModal');
     return new Observable(observer => {
       options = (options) ? options : {};
-      console.log('showNoticeModal', options);
+      console.info('[AppModalService] showNoticeModal', options);
 
       options.type = 'notice';
       this.modalSource.next(options);
@@ -51,11 +51,11 @@ export class AppModalService {
   }
 
   onModalClick = () : void => {
-    console.log('onModalClick');
+    console.info('onModalClick');
   }
 
   onConfirmAction = (action?:boolean) : void => {
-    console.log('onConfirmAction', action);
+    console.info('[AppModalService] onConfirmAction', action);
 
     this.showModalSource.next(false);
     if (this.modalObserver !== null) {

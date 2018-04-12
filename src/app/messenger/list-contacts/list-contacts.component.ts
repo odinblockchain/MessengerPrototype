@@ -5,7 +5,7 @@ import { Contact }          from '../contact';
 
 /* Services */
 import { MessengerService } from '../messenger.service';
-import { AppHeaderService } from '../../app-header.service';
+import { AppHeaderService } from '../../app-core/app-header.service';
 
 let onSelect : (contact: Contact) => void;
 

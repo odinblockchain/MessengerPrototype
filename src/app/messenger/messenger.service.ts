@@ -13,6 +13,8 @@ import 'rxjs/add/observable/defer';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/multicast';
 
+/* App Core */
+import { IdentityService } from '../app-core/identity.service';
 import { uuid } from '../app-helpers/uuid';
 
 /* Models */
@@ -37,7 +39,10 @@ export class MessengerService {
   messageStreamSource = new BehaviorSubject<any>([]);
   messageStream = this.messageStreamSource.asObservable();
 
-  constructor(private http: Http) {
+  constructor(
+    private http: Http,
+    private identity: IdentityService)
+  {
     this.messageStreamSource.publish().connect();
     this.messageStreamSource.next(this.localMessages);
   }
@@ -219,7 +224,7 @@ export class MessengerService {
         let newMessage : Message = {
           contactId: contactId,
           body: message,
-          senderId: 'Me',
+          senderId: this.identity.personalKey,
           time: new Date().getTime(),
           attachment: (attachment) ? attachment : false
         };

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { Router, NavigationStart, NavigationEnd, Event as NavigationEvent } from '@angular/router';
 
-import { AppHeaderService } from './app-header.service';
-import { AppModalService } from './app-modal.service';
-import { AppNotificationService } from './app-notification.service';
+/* Services */
+import { AppHeaderService } from './app-core/app-header.service';
+import { AppModalService } from './app-core/app-modal.service';
+import { AppNotificationService } from './app-core/app-notification.service';
 
-import { MockResponseService } from './app-helpers/mock-response.service';
-import { Modal } from './Modal';
+/* Modal */
+import { Modal } from './app-core/Modal';
 
 @Component({
   selector: 'app-root',
@@ -38,8 +39,7 @@ export class AppComponent implements OnInit {
     private _location: Location,
     private appHeader: AppHeaderService,
     private appModal: AppModalService,
-    private appNotification: AppNotificationService,
-    private mockResponse: MockResponseService) {
+    private appNotification: AppNotificationService) {
     /*  Route event types
         NavigationEnd
         NavigationCancel

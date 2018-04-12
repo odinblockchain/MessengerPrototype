@@ -5,8 +5,8 @@ import { Address } from '../Address';
 import { Wallet } from '../Wallet';
 
 /* Services */
+import { AppHeaderService } from '../../app-core/app-header.service';
 import { WalletService } from '../wallet.service';
-import { AppHeaderService } from '../../app-header.service';
 
 @Component({
   selector: 'app-wallet-home',
@@ -38,7 +38,7 @@ export class WalletHomeComponent implements OnInit {
   }
 
   private loadWallet() : void {
-    this.walletService.fetchWallet()
+    this.walletService.fetchWallet$()
     .subscribe(wallet => {
       this.wallet = wallet;
     });

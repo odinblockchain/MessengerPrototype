@@ -44,3 +44,11 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+### TODO
+- Cleanup logging, potentially add support for [Angular2Logger](https://www.npmjs.com/package/angular2-logger)
+- Code cleanup
+- Code test coverage
+- Code documentation
+- Add 'App Store' teaser page
+- Add 'About' general informative page

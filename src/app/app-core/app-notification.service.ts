@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
@@ -16,14 +15,14 @@ export class AppNotificationService {
 
   displayNotification(options?:any) : void {
     options = (options) ? options : {};
-    console.log('showNotification', options);
+    console.info('[AppNotificationService] showNotification', options);
 
     this.notificationSource.next(options);
     this.showNotificationSource.next(true);
 
-    // setTimeout(()=> {
-    //   this.resetNotification();
-    // }, 7000);
+    setTimeout(()=> {
+      this.resetNotification();
+    }, 5000);
   }
 
   resetNotification() : void {

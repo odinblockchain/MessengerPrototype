@@ -7,7 +7,7 @@ import { Transaction } from '../Transaction';
 
 /* Services */
 import { WalletService } from '../wallet.service';
-import { AppHeaderService } from '../../app-header.service';
+import { AppHeaderService } from '../../app-core/app-header.service';
 
 @Component({
   selector: 'app-view-transactions',
@@ -33,7 +33,7 @@ export class ViewTransactionsComponent implements OnInit {
   }
 
   private loadWallet() : void {
-    this.walletService.fetchWallet()
+    this.walletService.fetchWallet$()
     .subscribe(wallet => {
       this.wallet = wallet;
       this.transactions = wallet.transactions;

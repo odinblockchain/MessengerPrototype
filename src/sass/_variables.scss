@@ -1,48 +1,49 @@
+/* Colors
+*/
 $purple: #5a3278;
 $red: #f05a5a;
 $green: #9bd3c7;
 $gray: #313337;
-
+$grayDarker: #202225;
 $blue: #8c96be;
 $blueDarker: #225a78;
 
-// $brandColor: #5affab;
+/* App variables
+*/
 $brandColor: $green;
 $dangerColor: $red;
 
-// $appBodyColor: hotpink;
-// $appBodyColor: #ffffff;
-// $appViewBg: #313337;
+/* Layout variables
+*/
+
+// View
+$bodyBg: $gray;
 $appViewBg: $gray;
 $appTypographyColor: #dbe9e6;
-
-$appNavBg: $gray;
-
-$appPersonalBg: $blue;
-$appIconBg: transparent;
-$appIconBorder: $brandColor;
-$appIconColor: #ffffff;
-
-$listItemBgActive: $blueDarker;
-
 $appModalBg: $gray;
 
+$app-nav-width: 75vw;
+$menu-nav-width: 175px;
+$flex-scroll-offset: 18px;
+$header-width: 55px;
 
-// $appHeaderColor: indigo;
-// $appHeaderColor: $brandColor;
-// $appHeaderBg: $brandColor;
-// $appHeaderBg: $blueDarker;
+// Header
 $appHeaderBg: $gray;
 $appHeaderTextColor: $appTypographyColor;
 
+// Nav
+$appNavBg: $grayDarker;
+$appPersonalBg: $blue;
+$appIconBg: transparent;
+$appIconBorder: $brandColor;
+$appIconColor: $brandColor;
+
+$listItemBgActive: $blueDarker;
+
+/* Responsiveness
+*/
 $breakpoints: (
   'small'  : 767px,
   'medium' : 992px,
   'large'  : 1200px
 );
-
-// $app-nav-width: 220px;
-$app-nav-width: 75vw;
-$menu-nav-width: 175px;
-$flex-scroll-offset: 18px;
-$header-width: 55px;

@@ -2,9 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+/* App Core */
+import { AppHelpersModule } from '../app-helpers/app-helpers.module';
+
+/* Routing */
 import { FeedbackRoutingModule } from './feedback-routing.module';
+
+/* Components */
 import { FeedbackComponent } from './feedback.component';
 
+/* Services */
 import { FeedbackService } from './feedback.service';
 
 @NgModule({
@@ -12,7 +19,8 @@ import { FeedbackService } from './feedback.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    FeedbackRoutingModule
+    FeedbackRoutingModule,
+    AppHelpersModule
   ],
   declarations: [
     FeedbackComponent

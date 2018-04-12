@@ -7,17 +7,19 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/multicast';
 
+/* App Core */
+import { IdentityService } from '../../app-core/identity.service';
+
 /* Models */
 import { Message }          from '../Message';
 import { Contact }          from '../Contact';
 
 /* Services */
 import { MessengerService } from '../messenger.service';
-import { AppHeaderService } from '../../app-header.service';
-import { AppModalService } from '../../app-modal.service';
+import { AppHeaderService } from '../../app-core/app-header.service';
+import { AppModalService } from '../../app-core/app-modal.service';
 import { WalletService } from '../../wallet/wallet.service';
-import { IdentityService } from '../../app-core/identity.service';
-import { MockResponseService } from '../../app-helpers/mock-response.service';
+import { MockResponseService } from '../mock/mock-response.service';
 
 let onSelect : (message: Message) => void;
 
@@ -173,10 +175,10 @@ export class MessageDetailComponent implements OnInit, AfterViewChecked {
     }
 
     this.odnAmount = Number(this.odnAmount);
-    this.walletService.sendTransaction(this.contactId, this.odnAmount)
+    this.walletService.sendTransaction$(this.contactId, this.odnAmount)
     .takeUntil(this.unsubscribe)
     .subscribe(response => {
-      console.info('sendTransaction response', response);
+      console.info('sendTransaction$ response', response);
 
       if (response) {
         this.messengerService.sendMessage$(this.contactId, `${this.odnAmount} ODN has been sent`, { type: 'payment-out', amount: this.odnAmount })

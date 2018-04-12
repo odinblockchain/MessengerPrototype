@@ -59,7 +59,7 @@
                 <div class="avatar bubble">{{contact?.name | avatarName | uppercase}}</div>
               </ng-template>
               <ng-template #elseBlock class="avatar bubble">
-                <div class="avatar bubble">{{ 'Me' | avatarName | uppercase}}</div>
+                <div class="avatar bubble">{{ identity.personalName | avatarName | uppercase}}</div>
               </ng-template>
 
               <div class="message list-item"

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { MessengerService } from '../messenger/messenger.service';
+/* Services */
+import { MessengerService } from '../messenger.service';
 
 @Injectable()
 export class MockResponseService {
@@ -13,7 +14,8 @@ export class MockResponseService {
   triggerMock = (message) : void => {
 
     setTimeout(() => {
-      console.info('[MOCK] triggerMock', message);
+      console.info('[MockResponseService] triggerMock', message);
+
       let mockMessage = {
         contactId: message.contactId,
         body: `Just saw your message: ${message.body}`,
@@ -24,7 +26,7 @@ export class MockResponseService {
 
       this.messengerService.receiveMessage$(mockMessage)
       .subscribe(message => {
-        console.info('[MOCK] delivered mockMessage', message);
+        console.info('[MockResponseService] delivered mockMessage', message);
       });
     }, Math.floor(Math.random() * 10) * 1000)
   }

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AppHeaderService } from '../app-header.service';
-import { AppNotificationService } from '../app-notification.service';
+/* Services */
+import { AppHeaderService } from '../app-core/app-header.service';
+import { AppNotificationService } from '../app-core/app-notification.service';
 import { Feedback } from './Feedback';
 
+/* Models */
 import { FeedbackType } from './FeedbackType';
 import { FeedbackService } from './feedback.service';
 
@@ -83,11 +85,8 @@ export class FeedbackComponent implements OnInit {
   }
 
   submitForm = (form: any): void => {
-    console.log('submit', form);
-
     this.feedbackService.postFeedback$(form)
     .subscribe(res => {
-      console.log('GOT POST', res);
       if (res.status && res.status === 'ok') {
         return this.handleSuccess();
       }

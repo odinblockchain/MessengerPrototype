@@ -1,24 +1,28 @@
 import { Injectable }     from '@angular/core';
 import { Http, Response } from '@angular/http';
-
-// Import RxJs required methods
 import { Subject } from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
-import { of }       from 'rxjs/observable/of';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/publish';
 
+/* Helpers*/
+import { uuid } from '../app-helpers/uuid';
+
 /* Models */
 import { Address }  from './Address';
 import { Transaction }  from './Transaction';
 import { Wallet }  from './Wallet';
 
-import { AppModalService } from '../app-modal.service';
+/* Services */
+import { IdentityService } from '../app-core/identity.service';
+import { AppModalService } from '../app-core/app-modal.service';
+
+/* Mock */
 import { MockWallet } from './mock/wallet.mock';
-import { uuid } from '../app-helpers/uuid';
 
 @Injectable()
 export class WalletService {
@@ -29,12 +33,13 @@ export class WalletService {
 
   constructor(
     private http: Http,
-    private appModal: AppModalService) { }
+    private appModal: AppModalService,
+    private identity: IdentityService) { }
 
-  fetchWallet() : Observable<Wallet> {
+  fetchWallet$() : Observable<Wallet> {
     return new Observable(observer => {
       setTimeout(() => {
-        console.info('[WalletService] fetchWallet', this.localWallet);
+        console.info('[WalletService] fetchWallet$', this.localWallet);
 
         observer.next(this.localWallet);
         observer.complete();
@@ -42,8 +47,8 @@ export class WalletService {
     });
   }
 
-  sendTransaction(sendTo:string, amount:number) : Observable<boolean> {
-    console.info('[WalletService] sendTransaction', { sendTo: sendTo, amount: amount});
+  sendTransaction$(sendTo:string, amount:number) : Observable<boolean> {
+    console.info('[WalletService] sendTransaction$', { sendTo: sendTo, amount: amount});
 
     return new Observable(observer => {
       this.appModal.showConfirmModal({title: 'Confirm this transaction', body: `You are sending ${amount} ODN, are you sure?`})
@@ -86,7 +91,7 @@ export class WalletService {
 
   private buildTransaction(sendTo:string, amount:number, label?:string) : Transaction {
     return {
-      fromPublicKey: 'xxxx1',
+      fromPublicKey: this.identity.personalKey,
       toPublicKey: sendTo,
       txid: `${uuid.generate()}`,
       timestamp: Number(`${new Date().getTime()}`),
