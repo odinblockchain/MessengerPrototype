@@ -5,7 +5,7 @@
      [class.notification-active]="notificationState === true">
 
   <!-- App Drawer -->
-  <div class="app-nav-wrapper flex-scroll">
+  <div id="navWrapper" class="app-nav-wrapper flex-scroll">
     <div class="scroll-wrap">
       <div class="app-nav scroller">
         <div class="bubble">Me</div>
@@ -111,6 +111,6 @@
 </ng-container>
 
   <!-- Blocker -->
-  <div class="blocker"
+  <div id="appBlocker" class="blocker"
        (click)="toggleMenu(menuActive)"></div>
 </div>

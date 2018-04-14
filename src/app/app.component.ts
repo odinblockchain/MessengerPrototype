@@ -19,6 +19,8 @@ export class AppComponent implements OnInit {
   title = 'app';
   menuActive = false;
 
+  navElem = null;
+
   modalActiveState = false;
   notificationState = false;
 
@@ -33,6 +35,13 @@ export class AppComponent implements OnInit {
   actionMenu = <any>[];
 
   appReady = false;
+
+  touches = {
+    "touchstart": {"x":-1, "y":-1},
+  	"touchmove" : {"x":-1, "y":-1},
+  	"touchend"  : false,
+  	"direction" : "undetermined"
+  };
 
   constructor(
     private router: Router,
@@ -76,10 +85,47 @@ export class AppComponent implements OnInit {
     this.appNotification.notification.subscribe(notification => this.notificationConfig = notification);
 
     this.appReady = true;
+    this.navElem = document.getElementById('navWrapper');
+
+    this.navElem.addEventListener('touchstart', (event) => {
+      let touch = event.touches[0];
+      this.touches[event.type].x = touch.pageX;
+      this.touches[event.type].y = touch.pageY;
+    }, false);
+
+    this.navElem.addEventListener('touchmove', (event) => {
+      let touch = event.touches[0];
+      this.touches[event.type].x = touch.pageX;
+      this.touches[event.type].y = touch.pageY;
+
+      let pageX = touch.pageX;
+      pageX = Math.min(Math.max(pageX, 50), 240);
+      this.navElem.style.transform = `translate3d(${0-(240 - pageX)}px, 0, 0)`;
+    }, false);
+
+  	this.navElem.addEventListener('touchend', (event) => {
+      // console.log('touchend', event);
+      let difference = (this.touches['touchstart'].x - this.touches['touchmove'].x);
+
+      if (difference >= 50) {
+        this.toggleMenu();
+      }
+
+      // this.touches[event.type] = true;
+      // let x = (this.touches['touchstart'].x - this.touches['touchmove'].x);
+      // let y = (this.touches['touchstart'].y - this.touches['touchmove'].y);
+      // if (x < 0) x /= -1;
+      // if (y < 0) y /= -1;
+      // if (x > y)
+      //   console.log(this.touches['touchstart'].x < this.touches['touchmove'].x ? "right" : "left");
+      // else
+      //   console.log(this.touches['touchstart'].y < this.touches['touchmove'].y ? "down" : "up");
+    }, false);
   }
 
   toggleMenu(active?: boolean): void {
     this.menuActive = !this.menuActive;
+    this.navElem.style.transform = null;
     console.log('toggleMenu', this.menuActive);
   }
 
